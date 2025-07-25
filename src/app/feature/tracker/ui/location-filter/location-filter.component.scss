@@ -1,0 +1,12 @@
+@use 'button';
+
+:host {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  gap: .5rem;
+
+  button {
+    @include button.outline;
+  }
+}

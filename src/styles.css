@@ -1,1 +1,54 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --color-primary: #12aeb3;
+  --color-text: #fff;
+  /*--color-dark: #0b3a41;*/
+  /*--color-dark: #1b4c33;*/
+  --color-dark: darkslategray;
+  --color-accent: #77bc8e;
+  --color-disabled: #ccc;
+  --color-black: #101010;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  height: 100%;
+  min-height: 100vh;
+  background-color: var(--color-dark);
+  font-size: 14px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  padding: 0;
+  margin: .25rem 0;
+}
+
+h1 {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+
+cdk-dialog-container {
+  display: block;
+  /*position: absolute;*/
+  /*top: 20%;*/
+  margin: 10vh 10vw;
+  width: 80vw !important;
+  min-height: 20vh !important;
+  border-radius: 8px;
+  background-color: var(--color-accent);
+  padding: 1rem;
+  box-shadow: 10px 10px 5px 0 rgba(50, 50, 50, .75);
+}

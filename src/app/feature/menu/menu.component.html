@@ -1,0 +1,7 @@
+<button (click)="open()">≡</button>
+@if (showMenu()) {
+  <nav>
+    <button (click)="close()">X</button>
+    <button (click)="clearStorage()">Clear Storage</button>
+  </nav>
+}

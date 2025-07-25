@@ -1,0 +1,49 @@
+@mixin -shared {
+  cursor: pointer;
+  font-weight: bold;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  padding: 6px 12px;
+}
+
+@mixin primary {
+  @include -shared;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+
+  &:not([disabled]) {
+    &:hover,
+    &:active {
+      background-color: var(--color-dark);
+    }
+  }
+
+}
+
+@mixin outline {
+  @include -shared;
+  background-color: transparent;
+  border-color: var(--color-primary) !important;
+  color: var(--color-white);
+
+  &:not([disabled]) {
+    &:hover,
+    &:active {
+      background-color: var(--color-primary) !important;
+    }
+  }
+}
+
+@mixin ghost {
+  @include -shared;
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-white);
+
+  &:hover,
+  &:active {
+    color: var(--color-accent);
+  }
+}

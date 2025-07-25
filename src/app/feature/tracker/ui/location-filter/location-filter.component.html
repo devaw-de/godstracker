@@ -1,0 +1,7 @@
+@for (page of pageSelection(); track page.value) {
+  <app-toggle-button [value]="page.value"
+                     [selected]="page.selected"
+                     (click)="toggleSelection(page.value)"
+  />
+}
+<button (click)="toggleAll()">Toggle All</button>

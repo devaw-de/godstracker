@@ -1,0 +1,37 @@
+<h2>
+  <small>{{ location().id }}</small>
+  {{ location().title }}
+</h2>
+<section>
+  <h3>Requirements</h3>
+  <ul>
+    @for (req of location().requires; track $index) {
+      <li>
+        {{ req }}
+        <button (click)="deletedRequirement($index)">-</button>
+      </li>
+    } @empty {
+      <li>
+        <em>none</em>
+      </li>
+    }
+    <li>
+      <button (click)="addRequirement()">+ Requirement</button>
+    </li>
+  </ul>
+</section>
+<section>
+  <h3>Notes</h3>
+  <ul>
+    @for (comment of location().comments; track $index) {
+      <li>
+        {{ comment }}
+        <button (click)="editComment($index)">edit</button>
+        <button (click)="deleteComment($index)">x</button>
+      </li>
+    }
+    <li>
+      <button (click)="addComment()">+ Comment</button>
+    </li>
+  </ul>
+</section>

@@ -1,0 +1,36 @@
+@use 'button';
+
+:host {
+  display: block;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 0 1rem;
+  }
+
+  section {
+    padding-left: 1.5rem;
+
+    em {
+      font-size: smaller;
+    }
+  }
+
+  button {
+    @include button.primary;
+  }
+
+  h2 {
+    small {
+      display: inline-block;
+      background-color: var(--color-text);
+      color: var(--color-dark);
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+}

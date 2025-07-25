@@ -1,0 +1,21 @@
+<!--<img src="box2.jpg" alt="" />-->
+
+<details>
+  <summary>Quests</summary>
+  @for (quest of quests(); track quest.id) {
+    <app-quest [quest]="quest"/>
+  }
+</details>
+
+<details [open]="true">
+  <summary>Locations</summary>
+  Filter Pages
+  <app-location-filter [pages]="pages"
+                       (selectionChange$)="updateSelection($event)"
+  />
+  @for (location of filteredLocations(); track location.id) {
+    <app-location [location]="location"
+                  (locationChange$)="updateLocation($event)"
+    />
+  }
+</details>

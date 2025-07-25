@@ -1,0 +1,26 @@
+@use 'button';
+
+button {
+  @include button.ghost;
+  font-size: 2rem;
+}
+
+nav {
+  position: fixed;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 1rem;
+  inset: 0;
+  padding: 1rem;
+  background-color: var(--color-black);
+
+  button {
+    font-size: 1rem;
+    @include button.primary;
+
+    &:first-of-type {
+      align-self: flex-end;
+    }
+  }
+}
