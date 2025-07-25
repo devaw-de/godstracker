@@ -1,0 +1,11 @@
+:host {
+  display: inline-block;
+  background-color: var(--color-text);
+  color: var(--color-dark);
+  padding: 6px;
+  width: 4ch;
+  text-align: center;
+  border-radius: 8px;
+  margin-right: .5rem;
+  user-select: none;
+}

@@ -7,6 +7,7 @@
   --color-accent: #77bc8e;
   --color-disabled: #ccc;
   --color-black: #101010;
+  --color-white: #f1f1f1;
 }
 
 body {
@@ -39,16 +40,19 @@ h3 {
   font-weight: normal;
 }
 
+input {
+  padding: 4px;
+  border-radius: 8px;
+}
+
 
 cdk-dialog-container {
   display: block;
-  /*position: absolute;*/
-  /*top: 20%;*/
-  margin: 10vh 10vw;
-  width: 80vw !important;
+  margin: 10vh 5vw;
+  width: 90vw !important;
   min-height: 20vh !important;
   border-radius: 8px;
-  background-color: var(--color-accent);
+  background-color: var(--color-dark);
   padding: 1rem;
-  box-shadow: 10px 10px 5px 0 rgba(50, 50, 50, .75);
+  box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
 }

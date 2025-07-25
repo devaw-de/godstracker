@@ -2,12 +2,15 @@ import { ChangeDetectionStrategy, Component, inject, input, output } from '@angu
 import { Dialog } from '@angular/cdk/dialog';
 import { take } from 'rxjs';
 import { AppLocation } from '../../model/';
-import { TextInputModalComponent } from '../../../../shared/components';
+import { BadgeComponent, TextInputModalComponent } from '../../../../shared/components';
 
 @Component({
   selector: 'app-location',
   templateUrl: './location.component.html',
   styleUrl: './location.component.scss',
+  imports: [
+    BadgeComponent
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LocationComponent {
@@ -18,8 +21,8 @@ export class LocationComponent {
 
   locationChange$ = output<AppLocation>();
 
-  protected deleteComment(index: number): void {
-    const decision = confirm('Are you sure you want to delete this note?');
+  protected deleteComment(locationId: number, index: number): void {
+    const decision = confirm(`Are you sure you want to delete this comment for location ${locationId}?`);
     if (!decision) {
       return;
     }
@@ -29,7 +32,7 @@ export class LocationComponent {
     })
   }
 
-  protected editComment(index: number): void {
+  protected editComment(locationId: number, index: number): void {
     const comment = this.location()?.comments?.at(index);
     if (!comment) {
       return;
@@ -37,6 +40,7 @@ export class LocationComponent {
 
     const dialog = this.#dialog.open<string>(TextInputModalComponent, {
       data: {
+        locationId: locationId,
         heading: 'Edit Comment',
         value: comment,
         label: 'Comment'
@@ -45,7 +49,6 @@ export class LocationComponent {
     dialog.closed
       .pipe(take(1))
       .subscribe((dialogValue) => {
-        alert(dialogValue);
         if (!dialogValue) {
           return;
         }
@@ -56,18 +59,17 @@ export class LocationComponent {
       });
   }
 
-  protected addComment(): void {
-    console.log('Add Comment');
+  protected addComment(locationId: number): void {
     const dialog = this.#dialog.open<string>(TextInputModalComponent, {
       data: {
-        heading: 'Add Comment',
-        label: 'Comment'
+        locationId: locationId,
+        heading: `Add Comment`,
+        label: 'Comment',
       }
     })
     dialog.closed
       .pipe(take(1))
       .subscribe((dialogValue) => {
-        console.log('dialog closed', dialogValue);
         if (!dialogValue) {
           return;
         }
@@ -81,10 +83,11 @@ export class LocationComponent {
       });
   }
 
-  protected addRequirement() {
+  protected addRequirement(locationId: number): void {
     const dialog = this.#dialog.open<number>(TextInputModalComponent, {
       data: {
-        heading: 'Add Requirement',
+        locationId: locationId,
+        heading: `Add Requirement`,
         label: 'Requirement',
       }
     })
@@ -102,8 +105,8 @@ export class LocationComponent {
     });
   }
 
-  protected deletedRequirement(index: number): void {
-    const decision = confirm('Are you sure you want to delete this requirement?')
+  protected deletedRequirement(locationId: number, index: number): void {
+    const decision = confirm(`Are you sure you want to delete this requirement for location ${locationId}?`);
     if (!decision) {
       return;
     }

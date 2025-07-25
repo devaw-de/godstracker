@@ -1,3 +1,5 @@
+@use 'button';
+
 :host {
   display: flex;
   flex-flow: column nowrap;
@@ -8,4 +10,38 @@
   min-height: 20vh;
   justify-content: space-between;
   align-items: center;
+
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  main {
+    width: 100%;
+
+    label {
+      font-style: italic;
+      display: flex;
+      flex-flow: row nowrap;
+      min-width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  footer {
+    display: flex;
+    flex-flow: row-reverse nowrap;
+    width: 100%;
+    justify-content: space-between;
+
+    button {
+      @include button.primary;
+
+      &:last-of-type {
+        @include button.outline
+      }
+    }
+  }
 }

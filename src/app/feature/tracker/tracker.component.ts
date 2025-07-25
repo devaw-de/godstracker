@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { LocationComponent, LocationFilterComponent, QuestComponent } from './ui/';
-import { AppLocation, AppQuest } from './model/';
+import { AppLocation } from './model/';
 import { LocationsService, PAGES, QuestsService } from './data/';
 
 @Component({
@@ -32,10 +32,7 @@ export class TrackerComponent {
   }
 
   protected updateLocation(location: AppLocation): void {
-    console.log('update Location', location);
     this.#locationsService.update(location);
   }
-
-  log = effect(() => console.dir(this.filteredLocations().map(x => x.comments)))
 
 }

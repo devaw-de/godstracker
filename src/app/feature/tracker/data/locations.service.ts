@@ -1,4 +1,4 @@
-import { computed, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { AppLocation } from '../model';
 import { LocationsDbService } from './locations.db.service';
 
@@ -9,15 +9,9 @@ export class LocationsService {
 
   readonly #dbService = inject(LocationsDbService);
 
-  locations = computed(() => (this.#dbService.locations()).sort(this.#locationSortFn));
+  locations = this.#dbService.locations;
 
   update(location: AppLocation) {
     this.#dbService.update(location);
-  }
-
-  #locationSortFn(a: AppLocation, b: AppLocation): number {
-    return a.page === b.page
-    ? a.id - b.id
-    : a.page - b.page;
   }
 }
