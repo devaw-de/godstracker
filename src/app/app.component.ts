@@ -5,9 +5,9 @@ import { MenuComponent } from './feature/menu/menu.component';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, MenuComponent],
-  templateUrl: './app.html',
-  styleUrl: './app.scss',
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class App {
+export class AppComponent {
 }
