@@ -1,0 +1,55 @@
+@use 'button';
+@use 'form';
+
+:host {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  min-height: 20vh;
+  justify-content: space-between;
+
+  header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: .5rem;
+  }
+
+  main {
+    flex-grow: 1;
+    min-height: 20vh;
+
+    label {
+      @include form.label;
+      max-width: 70%;
+      margin: 0 auto;
+
+      input {
+        margin-left: .25rem;
+      }
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      gap: .25rem;
+      max-width: 100%;
+
+      li {
+        button {
+          @include button.primary;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  footer {
+    button {
+      @include button.outline
+    }
+  }
+}

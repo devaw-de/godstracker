@@ -1,0 +1,11 @@
+@use 'button';
+
+button {
+  @include button.outline;
+  text-transform: uppercase;
+
+  small {
+    margin-right: .25rem;
+    font-weight: normal;
+  }
+}

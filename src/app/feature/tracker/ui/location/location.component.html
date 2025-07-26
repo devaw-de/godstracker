@@ -1,16 +1,26 @@
 <div>
-  <app-badge>{{ location().id }}</app-badge>
-  <small>{{ location().title }}</small>
+  <app-badge [mainText]="'' + location().id"
+             [subText]="'p. ' + location().page"
+             [caption]="location().title"
+             [done]="location().done"
+  />
 </div>
 <div>
   <section>
     <h3>
       Requirements
-      <button (click)="addRequirement(location().id)">+</button>
+      <button (click)="addRequirement()">+</button>
     </h3>
-      @for (req of location().requires; track $index) {
-        {{ req }}
-        <button (click)="deletedRequirement(location().id, $index)">-</button>
+      @for (req of requirements(); track $index) {
+        <button class="requirement"
+                [class.available]="req.available"
+                (click)="deletedRequirement($index)"
+        >
+          @if (req.available) {
+            <span>🗸</span>
+          }
+          {{ req.name }}
+        </button>
       } @empty {
         <em>none</em>
       }
@@ -18,15 +28,21 @@
   <section>
     <h3>
       Comments
-      <button (click)="addComment(location().id)">+</button>
+      <button (click)="addComment()">+</button>
     </h3>
       @for (comment of location().comments; track $index) {
           {{ comment }}
-          <button (click)="editComment(location().id, $index)">🖊️</button>
-          <button (click)="deleteComment(location().id, $index)">x</button>
+          <button (click)="editComment($index)">🖊️</button>
+          <button (click)="deleteComment($index)">x</button>
       } @empty {
           <em>none</em>
       }
-
+  </section>
+  <section class="done-status">
+    @if (location().done) {
+      <button (click)="setDoneStatus(false)">unmark</button>
+    } @else {
+      <button (click)="setDoneStatus(true)">Mark as done</button>
+    }
   </section>
 </div>

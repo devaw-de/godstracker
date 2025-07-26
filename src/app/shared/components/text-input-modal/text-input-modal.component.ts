@@ -14,8 +14,7 @@ import { BadgeComponent } from '../badge/badge.component';
 export class TextInputModalComponent {
 
   readonly #dialogRef = inject(DialogRef);
-
-  data = inject(DIALOG_DATA);
+  readonly data = inject(DIALOG_DATA);
 
   protected save(text: string): void {
     this.#dialogRef.close(text);

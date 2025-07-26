@@ -1,0 +1,25 @@
+@if (quest()) {
+  <header>
+    <h1>{{ quest()!.name }}</h1>
+    <h2>{{ quest()!.id }}</h2>
+  </header>
+
+  <main>
+    Required in:
+    <p>
+      @for (location of matchingLocations(); track $index) {
+
+        <app-badge [mainText]="location.id.toString()"
+                   [subText]="'p' + location.page.toString()"
+        />
+      } @empty {
+        <em>no matches</em>
+      }
+    </p>
+  </main>
+
+  <footer>
+    <button (click)="delete()">Delete</button>
+    <button (click)="close()">Close</button>
+  </footer>
+}

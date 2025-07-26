@@ -1,0 +1,37 @@
+<header>
+  <h1>{{ heading() }}</h1>
+  @if (badge()) {
+    <app-badge [mainText]="badge()!.mainText"
+               [subText]="badge()!.subText"
+    />
+  }
+</header>
+<main>
+  <label>
+    Keyword
+  <input #input
+         id="inputField"
+         type="text"
+         (input)="updateSearchTerm(input.value)"
+  />
+  </label>
+  <div>
+    @if (input.value) {
+      <ul>
+        @for (quest of quests() | slice: 0:maxQuests; track quest.id) {
+          <li>
+            <button (click)="accept(quest.id)">{{ quest.name }}</button>
+          </li>
+        } @empty {
+          nothing found
+        }
+        @if (quests().length > maxQuests) {
+          + {{ quests().length - maxQuests }}
+        }
+      </ul>
+    }
+  </div>
+</main>
+<footer>
+  <button (click)="cancel()">Cancel</button>
+</footer>

@@ -1,3 +1,5 @@
+@use 'button';
+
 details {
   margin-bottom: 1rem;
 
@@ -6,15 +8,20 @@ details {
   }
 
   &[open] {
+    summary {
+      font-weight: bold;
+    }
+  }
 
+  button {
+    @include button.primary;
+  }
+
+  app-quest {
+    margin: .25rem;
   }
 }
 
 app-location {
   margin-bottom: 1rem;
-}
-
-img {
-  width: 100%;
-  aspect-ratio: auto;
 }

@@ -49,6 +49,11 @@
     section {
       padding: .5rem;
 
+      &.done-status {
+        display: flex;
+        justify-content: flex-end;
+      }
+
       em {
         font-size: smaller;
       }
@@ -56,17 +61,21 @@
 
     button {
       @include button.primary;
-    }
 
+      &.requirement {
+        @include button.outline;
+        text-transform: uppercase;
+        margin: 0 .25rem .25rem 0;
+
+        &.available {
+          color: var(--color-accent);
+        }
+      }
+    }
   }
 
   app-badge {
     margin-bottom: .25rem;
-  }
-
-  small {
-    display: block;
-    width: 20ch;
   }
 
   h3 {

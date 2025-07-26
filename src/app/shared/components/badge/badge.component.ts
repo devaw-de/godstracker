@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-badge',
@@ -8,4 +8,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class BadgeComponent {
 
+  mainText = input<string>('');
+  subText = input<string>('');
+  caption = input<string>('');
+  done = input<boolean | undefined>(false);
 }

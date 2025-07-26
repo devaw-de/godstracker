@@ -1,10 +1,10 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { App } from './app/app';
+import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 
-bootstrapApplication(App, {
+bootstrapApplication(AppComponent, {
   providers: [
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),

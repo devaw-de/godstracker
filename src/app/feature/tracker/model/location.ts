@@ -4,4 +4,5 @@ export interface AppLocation {
   page: number;
   requires: number[];
   comments?: string[];
+  done?: boolean;
 }

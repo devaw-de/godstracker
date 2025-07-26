@@ -1,10 +1,11 @@
-<!--<img src="box2.jpg" alt="" />-->
-
 <details>
   <summary>Quests</summary>
   @for (quest of quests(); track quest.id) {
-    <app-quest [quest]="quest"/>
+    <app-quest [quest]="quest"
+               (click)="showQuestDetails(quest.id)"
+    />
   }
+  <button (click)="addQuest()">+</button>
 </details>
 
 <details [open]="true">
@@ -15,6 +16,7 @@
   />
   @for (location of filteredLocations(); track location.id) {
     <app-location [location]="location"
+                  [availableQuests]="quests()"
                   (locationChange$)="updateLocation($event)"
     />
   }
