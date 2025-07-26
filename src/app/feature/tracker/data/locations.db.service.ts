@@ -62,4 +62,18 @@ export class LocationsDbService extends Dexie {
       return false;
     }
   }
+
+  async unsetDoneStatus(): Promise<boolean> {
+    try {
+      await this.table(this.#tableName)
+        .where('done')
+        .anyOf([1, 'true', '1'])
+        .each((entry) => {
+          this.update({ ...entry, done: false });
+        })
+      return true;
+    } catch {
+      return false;
+    }
+  }
 }

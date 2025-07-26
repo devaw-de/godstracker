@@ -5,22 +5,43 @@ button {
   font-size: 2rem;
 }
 
-nav {
+.menu {
+  z-index: 99;
   position: fixed;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  gap: 1rem;
   inset: 0;
   padding: 1rem;
   background-color: var(--color-black);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+
+  .danger {
+    border-left: 3px solid red;
+    border-right: 3px solid red;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
+    padding: 1rem;
+    margin: 1rem 0;
+  }
 
   button {
     font-size: 1rem;
-    @include button.primary;
+    &:not(.close) {
+      @include button.primary;
+    }
 
-    &:first-of-type {
+    &.close {
+      @include button.outline;
       align-self: flex-end;
     }
+  }
+
+  a {
+    color: inherit;
+  }
+
+  summary {
+    cursor: pointer;
   }
 }

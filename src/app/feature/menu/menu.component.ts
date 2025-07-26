@@ -12,6 +12,8 @@ export class MenuComponent {
 
   readonly #locationsDbService = inject(LocationsDbService);
   readonly #questsDbService = inject(QuestsDbService);
+  readonly gameUrl = 'https://www.redravengames.com/sleeping-gods/';
+  readonly codeUrl = '#';
 
   showMenu = signal<boolean>(false);
 
@@ -24,7 +26,12 @@ export class MenuComponent {
   }
 
   protected async clearStorage(): Promise<void> {
-    const decision = confirm('Are you sure you want to clear storage?');
+    const texts = [
+      'Are you sure you want to clear storage?',
+      'This will delete any input you made.',
+      'The app will be reset to its initial state.'
+    ]
+    const decision = confirm(texts.join(' '));
     if (!decision) {
       return;
     }
@@ -33,5 +40,31 @@ export class MenuComponent {
       this.#questsDbService.clearAll()
     ]);
     window.location.reload();
+  }
+
+  protected async unmarkLocations(): Promise<void> {
+    const texts = [
+      'Are you sure?',
+      'All Locations will be marked as not done.'
+    ];
+    const decision = confirm(texts.join(' '));
+    if (decision) {
+    await this.#locationsDbService.unsetDoneStatus();
+    }
+  }
+
+  protected async clearQuests(): Promise<void> {
+    const texts = [
+      'Are you sure?',
+      ' You will lose all quest cards!'
+    ];
+    const decision = confirm(texts.join(' '));
+    if (decision) {
+      await this.#questsDbService.clearAll();
+    }
+  }
+
+  protected export(): void {
+    alert('NYI')
   }
 }
