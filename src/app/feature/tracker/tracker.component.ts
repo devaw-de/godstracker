@@ -9,7 +9,7 @@ import {
   QuestFinderModalComponent
 } from './ui/';
 import { AppLocation, AppQuest } from './model/';
-import { LocationsService, PAGES, QUESTS_CARDS, QuestsService } from './data/';
+import { LocationsService, PAGES, QuestsService } from './data/';
 
 @Component({
   selector: 'app-tracker',
@@ -28,7 +28,8 @@ export class TrackerComponent {
   readonly #questsService = inject(QuestsService);
   readonly #dialog = inject(Dialog);
 
-  readonly pages = Array.from({length: PAGES.length}).map((_, index) => index + 2);
+  readonly pages: number[] = Array.from({ length: PAGES.length }).map((_, index) => index + 2);
+  readonly questCards: AppQuest[] = this.#questsService.questCards;
 
   #pageSelection = signal<number[]>([]);
   filteredLocations = computed<AppLocation[]>(() => this.#locationsService.locations()
@@ -45,22 +46,18 @@ export class TrackerComponent {
   }
 
   protected addQuest(): void {
-    const cards = [...QUESTS_CARDS.entries()].map(card => ({
-      id: card[0],
-      name: card[1]
-    }));
-    console.warn(cards);
-      const dialog = this.#dialog.open<AppQuest>(QuestFinderModalComponent, {
-        data: {
-          cards: cards,
-          heading: 'Add A Quest Card'
-        }
-      });
+    const dialog = this.#dialog.open<number>(QuestFinderModalComponent, {
+      data: {
+        cards: this.#questsService.questCards,
+        heading: 'Add A Quest Card'
+      }
+    });
     dialog.closed
       .pipe(take(1))
       .subscribe((result) => {
-        if (result) {
-          this.#questsService.add(result);
+        const card = this.questCards.find((q) => q.id === result)
+        if (card) {
+          this.#questsService.add(card);
         }
       })
   }
@@ -87,6 +84,4 @@ export class TrackerComponent {
       this.#questsService.delete(id);
     }
   }
-
-  protected readonly QUESTS_CARDS = QUESTS_CARDS;
 }

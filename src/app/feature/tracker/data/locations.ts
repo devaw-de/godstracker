@@ -55,5 +55,6 @@ export const LOCATIONS: AppLocation[] = PAGES
     title: namedLocations.get(location.id) ?? '',
     comments: [],
     requires: [],
+    rewards: [],
     page: location.page
   }));

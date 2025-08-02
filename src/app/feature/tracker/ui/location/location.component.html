@@ -11,10 +11,10 @@
       Requirements
       <button (click)="addRequirement()">+</button>
     </h3>
-      @for (req of requirements(); track $index) {
+      @for (req of requirements(); track req.id) {
         <button class="requirement"
                 [class.available]="req.available"
-                (click)="deletedRequirement($index)"
+                (click)="deletedRequirement(req.id)"
         >
           @if (req.available) {
             <span>🗸</span>
@@ -27,13 +27,33 @@
   </section>
   <section>
     <h3>
+      Rewards
+      <button (click)="addReward()">+</button>
+    </h3>
+    @for(reward of rewards(); track reward.id) {
+      <button class="reward"
+              [class.available]="reward.available"
+              (click)="deletedReward(reward.id)"
+      >
+        @if (reward.available) {
+          <span>🗸</span>
+        }
+        {{ reward.name }}
+      </button>
+    } @empty {
+      <em>none</em>
+    }
+  </section>
+  <section>
+    <h3>
       Comments
       <button (click)="addComment()">+</button>
     </h3>
       @for (comment of location().comments; track $index) {
+        <span (click)="editComment($index)">
           {{ comment }}
-          <button (click)="editComment($index)">🖊️</button>
-          <button (click)="deleteComment($index)">x</button>
+        </span>
+        <button (click)="deleteComment($index)">x</button>
       } @empty {
           <em>none</em>
       }

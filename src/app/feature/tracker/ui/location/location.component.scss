@@ -62,6 +62,7 @@
     button {
       @include button.primary;
 
+      &.reward,
       &.requirement {
         @include button.outline;
         text-transform: uppercase;

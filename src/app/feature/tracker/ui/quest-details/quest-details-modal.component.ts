@@ -22,6 +22,9 @@ export class QuestDetailsModalComponent implements OnInit {
   matchingLocations = computed<AppLocation[]>(() => this.locations()
     .filter((location) => location.requires.includes(this.quest()!.id))
   );
+  rewardLocations = computed<AppLocation[]>(() => this.locations()
+    .filter((location) => location.rewards.includes(this.quest()!.id))
+  );
 
   ngOnInit(): void {
     this.locations.set(this.#data.locations);

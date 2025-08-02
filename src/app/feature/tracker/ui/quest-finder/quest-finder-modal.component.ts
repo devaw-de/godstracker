@@ -30,7 +30,7 @@ export class QuestFinderModalComponent implements OnInit {
 
   #questCards = signal<AppQuest[]>([]);
   #searchTerm = signal<string>('');
-  #badge = signal<{mainText: string; subText: string} | undefined>(undefined);
+  #badge = signal<{ mainText: string; subText: string } | undefined>(undefined);
   #heading = signal<string>('');
   quests = computed<AppQuest[]>(() => this.#questCards()?.filter(
     (quest) => !this.#searchTerm() || quest.name?.match(new RegExp(this.#searchTerm()))?.length
@@ -50,7 +50,7 @@ export class QuestFinderModalComponent implements OnInit {
 
   protected accept(questId: number): void {
     this.#dialogRef.close(
-      this.#questCards().find(card => card.id === questId)
+      this.#questCards().find((card) => card.id === questId)?.id
     );
   }
 

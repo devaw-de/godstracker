@@ -1,4 +1,4 @@
-<details>
+<details [open]="true">
   <summary>Quests</summary>
   @for (quest of quests(); track quest.id) {
     <app-quest [quest]="quest"
@@ -15,7 +15,8 @@
                        (selectionChange$)="updateSelection($event)"
   />
   @for (location of filteredLocations(); track location.id) {
-    <app-location [location]="location"
+    <app-location [questCards]="questCards"
+                  [location]="location"
                   [availableQuests]="quests()"
                   (locationChange$)="updateLocation($event)"
     />

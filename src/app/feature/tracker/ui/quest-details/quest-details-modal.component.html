@@ -5,7 +5,7 @@
   </header>
 
   <main>
-    Required in:
+    <p>Required in:</p>
     <p>
       @for (location of matchingLocations(); track $index) {
 
@@ -16,6 +16,17 @@
         <em>no matches</em>
       }
     </p>
+    <p>Rewarded in</p>
+    <p>
+      @for (location of rewardLocations(); track location.id) {
+        <app-badge [mainText]="location.id.toString()"
+                   [subText]="'p' + location.page.toString()"
+        />
+      } @empty {
+        <em>unknown</em>
+      }
+    </p>
+
   </main>
 
   <footer>
