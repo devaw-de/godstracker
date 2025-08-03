@@ -1,27 +1,30 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { Dialog } from '@angular/cdk/dialog';
 import { take } from 'rxjs';
-import { AppLocation, AppQuest } from '../../model/';
+import { AppLocation, AppLocationTag, AppQuest, AppQuestWithAvailability } from '../../model/';
 import { BadgeComponent, TextInputModalComponent } from '../../../../shared/components';
 import { QuestFinderModalComponent } from '../quest-finder';
 import { QUESTS_CARDS } from '../../data';
-
-interface AppQuestWithAvailability {
-  id: number;
-  name: string | undefined;
-  available: boolean | undefined;
-}
+import { LocationTagsComponent } from '../location-tags/location-tags.component';
+import { LocationSectionComponent } from '../location-section/location-section.component';
+import { LocationTagPipe } from '../location-tags/icon-tag.pipe';
 
 @Component({
   selector: 'app-location',
   templateUrl: './location.component.html',
   styleUrl: './location.component.scss',
-  imports: [BadgeComponent],
+  imports: [
+    BadgeComponent,
+    LocationTagsComponent,
+    LocationSectionComponent,
+    LocationTagPipe
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LocationComponent {
 
-  #dialog = inject(Dialog);
+  readonly #dialog = inject(Dialog);
+  readonly availableLocationTags = Object.values(AppLocationTag);
 
   questCards = input.required<AppQuest[]>();
   location = input.required<AppLocation>();
@@ -191,6 +194,13 @@ export class LocationComponent {
     this.locationChange$.emit({
       ...this.location(),
       rewards: this.location().rewards.filter((rewardId) => rewardId !== id),
+    });
+  }
+
+  protected updateTags(tags: AppLocationTag[]): void {
+    this.locationChange$.emit({
+      ...this.location(),
+      tags: tags
     });
   }
 }

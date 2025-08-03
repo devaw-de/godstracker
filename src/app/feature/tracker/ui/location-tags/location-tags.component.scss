@@ -1,0 +1,14 @@
+@use 'button';
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: smaller;
+  max-width: 100%;
+  gap: .25rem;
+
+  button {
+    @include button.primary;
+  }
+}

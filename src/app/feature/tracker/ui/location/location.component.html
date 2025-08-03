@@ -4,65 +4,48 @@
              [caption]="location().title"
              [done]="location().done"
   />
+  @for (tag of location().tags; track $index) {
+    {{ tag | tagIcon }}
+  }
 </div>
 <div>
   <section>
-    <h3>
-      Requirements
-      <button (click)="addRequirement()">+</button>
-    </h3>
-      @for (req of requirements(); track req.id) {
-        <button class="requirement"
-                [class.available]="req.available"
-                (click)="deletedRequirement(req.id)"
-        >
-          @if (req.available) {
-            <span>🗸</span>
-          }
-          {{ req.name }}
-        </button>
-      } @empty {
-        <em>none</em>
-      }
+    <app-location-section [heading]="'Requirements'"
+                          [quests]="requirements()"
+                          (add$)="addRequirement()"
+                          (delete$)="deletedRequirement($event)"
+    />
   </section>
   <section>
-    <h3>
-      Rewards
-      <button (click)="addReward()">+</button>
-    </h3>
-    @for(reward of rewards(); track reward.id) {
-      <button class="reward"
-              [class.available]="reward.available"
-              (click)="deletedReward(reward.id)"
-      >
-        @if (reward.available) {
-          <span>🗸</span>
-        }
-        {{ reward.name }}
-      </button>
-    } @empty {
-      <em>none</em>
-    }
+    <app-location-section [heading]="'Rewards'"
+                          [quests]="rewards()"
+                          (add$)="addReward()"
+                          (delete$)="deletedReward($event)"
+    />
   </section>
   <section>
     <h3>
       Comments
       <button (click)="addComment()">+</button>
     </h3>
-      @for (comment of location().comments; track $index) {
-        <span (click)="editComment($index)">
+    @for (comment of location().comments; track $index) {
+      <span (click)="editComment($index)">
           {{ comment }}
         </span>
-        <button (click)="deleteComment($index)">x</button>
-      } @empty {
-          <em>none</em>
-      }
+      <button (click)="deleteComment($index)">x</button>
+    } @empty {
+      <em>none</em>
+    }
   </section>
-  <section class="done-status">
+  <section>
+    <app-location-tags [allTags]="availableLocationTags"
+                       [currenTags]="location().tags ?? []"
+                       (tagChange$)="updateTags($event)"
+    />
     @if (location().done) {
-      <button (click)="setDoneStatus(false)">unmark</button>
+      <button (click)="setDoneStatus(false)">- done</button>
     } @else {
-      <button (click)="setDoneStatus(true)">Mark as done</button>
+      <button (click)="setDoneStatus(true)">+ done</button>
     }
   </section>
 </div>

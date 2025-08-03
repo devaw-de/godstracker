@@ -15,8 +15,8 @@ export class LocationsDbService extends Dexie {
 
   constructor() {
     super('Dexie');
-    this.version(2).stores({
-      locations: 'id, page, requires, rewards, comments, done'
+    this.version(1).stores({
+      locations: 'id, page, requires, rewards, comments, done, tags'
     });
     this.#populateIfEmpty();
   }
