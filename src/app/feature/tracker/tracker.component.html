@@ -9,9 +9,9 @@
 </details>
 
 <details [open]="true">
-  <summary>Locations</summary>
-  Filter Pages
-  <app-location-filter [pages]="pages"
+  <summary>Pages</summary>
+  <app-page-selection [pages]="pages"
+                      [selectedPage]="selectedPage()"
                        (selectionChange$)="updateSelection($event)"
   />
   @for (location of filteredLocations(); track location.id) {

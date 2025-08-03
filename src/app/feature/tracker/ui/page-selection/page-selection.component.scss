@@ -8,5 +8,10 @@
 
   button {
     @include button.outline;
+    min-width: 3rem !important;
+
+    &.selected {
+      @include button.primary
+    }
   }
 }

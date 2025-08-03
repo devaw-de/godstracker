@@ -3,7 +3,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { take } from 'rxjs';
 import {
   LocationComponent,
-  LocationFilterComponent,
+  PageSelectionComponent,
   QuestComponent,
   QuestDetailsModalComponent,
   QuestFinderModalComponent
@@ -18,7 +18,7 @@ import { LocationsService, PAGES, QuestsService } from './data/';
   imports: [
     QuestComponent,
     LocationComponent,
-    LocationFilterComponent
+    PageSelectionComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -31,14 +31,14 @@ export class TrackerComponent {
   readonly pages: number[] = Array.from({ length: PAGES.length }).map((_, index) => index + 2);
   readonly questCards: AppQuest[] = this.#questsService.questCards;
 
-  #pageSelection = signal<number[]>([]);
+  selectedPage = signal<number>(2);
   filteredLocations = computed<AppLocation[]>(() => this.#locationsService.locations()
-    .filter((location) => this.#pageSelection().includes(location.page))
+    .filter((location) => this.selectedPage() === location.page)
   );
   quests = this.#questsService.quests;
 
-  protected updateSelection(ev: number[]): void {
-    this.#pageSelection.set(ev);
+  protected updateSelection(ev: number): void {
+    this.selectedPage.set(ev);
   }
 
   protected updateLocation(location: AppLocation): void {

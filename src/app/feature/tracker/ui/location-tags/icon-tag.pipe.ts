@@ -17,9 +17,9 @@ export class LocationTagPipe implements PipeTransform {
       case AppLocationTag.DO_NOT_VISIT:
         return '🚫';
       case AppLocationTag.RICH_REWARDS:
-        return '🤑';
+        return '💰';
       case AppLocationTag.TRADE_OPPORTUNITY:
-        return '💸';
+        return '⚖️';
       default:
         return '??';
     }
