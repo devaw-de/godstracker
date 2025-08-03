@@ -1,0 +1,11 @@
+<header>
+  {{ data.heading }}
+</header>
+<main>
+  @for (text of data.texts; track $index) {
+    <p>{{ text }}</p>
+  }
+</main>
+<footer>
+  <button (click)="close()">Ok</button>
+</footer>

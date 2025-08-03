@@ -1,0 +1,22 @@
+@use 'button';
+
+:host {
+  color: var(--color-white);
+
+  header {
+    font-size: 1.25rem;
+  }
+
+  main {
+    margin: 1rem 0;
+  }
+
+  footer {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      @include button.primary;
+    }
+  }
+}

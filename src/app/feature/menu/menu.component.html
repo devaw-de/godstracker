@@ -7,7 +7,11 @@
     >
       X
     </button>
-    <button (click)="export()">Export</button>
+    <button (click)="export()"
+            [disabled]="exportDisabled()"
+    >
+      Export
+    </button>
     <div class="danger">
       Danger Zone
       <button (click)="clearStorage()">Clear Storage</button>
