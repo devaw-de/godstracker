@@ -1,18 +1,9 @@
 @use 'button';
+@use 'details';
 
 details {
+  @include details.default;
   margin-bottom: 1rem;
-
-  summary {
-    cursor: pointer;
-    margin-bottom: .5rem;
-  }
-
-  &[open] {
-    summary {
-      font-weight: bold;
-    }
-  }
 
   button {
     @include button.primary;

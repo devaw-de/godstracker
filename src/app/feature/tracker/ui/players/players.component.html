@@ -1,0 +1,16 @@
+@for (player of players(); track $index) {
+  <p>
+    <span>{{ player }}</span>
+    <button class="delete"
+            [disabled]="players().length <= minPlayers"
+            (click)="removePlayer($index)"
+    >
+      <fa-icon [icon]="faMinus"></fa-icon>
+    </button>
+  </p>
+}
+<button [disabled]="players().length >= maxPlayers"
+        (click)="addPlayer('test')"
+>
+  + Add Player
+</button>

@@ -1,0 +1,24 @@
+@use 'button';
+
+:host {
+  display: block;
+  padding: 0 1rem;
+
+  button {
+    @include button.primary;
+
+    &.delete {
+      @include button.outline;
+    }
+  }
+
+  p {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+
+    span {
+      width: 16ch;
+    }
+  }
+}

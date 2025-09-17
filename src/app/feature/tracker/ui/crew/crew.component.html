@@ -1,0 +1,38 @@
+@for (mate of crew(); track $index) {
+  <details>
+    <summary>{{ mate.name | titlecase }}</summary>
+    @if (players().length > 1 && mate.name !== CrewNames.CAPTAIN) {
+      <app-crew-player-selection [players]="players()"
+                                 [selectedPlayer]="mate.playerIndex"
+                                 (playerChange)="updateControllingPlayer(mate, $event)"
+      />
+    }
+    <app-crew-command-tokens [commandTokens]="mate.commandTokens"
+                             (increment)="incrementCommandToken(mate, $event, 1)"
+                             (decrement)="incrementCommandToken(mate, $event, -1)"
+    />
+    <app-crew-items [title]="'Equipment'"
+                    [items]="mate.equipment"
+                    (add)="addEquipment(mate)"
+                    (remove)="removeEquipment(mate, $event)"
+    />
+    <app-crew-items [title]="'Xp cards'"
+                    [items]="mate.xpCards"
+                    (add)="addXpCard(mate)"
+                    (remove)="removeXpCard(mate, $event)"
+    />
+    <app-crew-items [title]="'Ability cards'"
+                    [items]="mate.abilityCards"
+                    (add)="addAbilityCard(mate)"
+                    (remove)="removeAbilityCard(mate, $event)"
+    />
+    <app-crew-injuries [injuries]="mate.injuries"
+                       [maxHealth]="mate.maxHealth"
+                       (incrementInjuries)="incrementInjuries(mate, $event)"
+    />
+    <app-crew-comment [mateName]="mate.name"
+                      [comment]="mate.comment"
+                      (updateComment)="updateComment(mate, $event)"
+    />
+  </details>
+}

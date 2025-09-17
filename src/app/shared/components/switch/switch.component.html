@@ -1,0 +1,13 @@
+<input type="checkbox"
+       [id]="id()"
+       [checked]="isChecked()"
+/>
+<label [for]="id()"
+       [title]="isChecked() ? checkedLabel() : uncheckedLabel()"
+>
+  @if (isChecked()) {
+    <span>{{ checkedLabel() }}</span>
+  } @else {
+    <span>{{ uncheckedLabel() }}</span>
+  }
+</label>

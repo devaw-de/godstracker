@@ -1,43 +1,80 @@
 @if (!showMenu()) {
-  <button (click)="open()">≡</button>
+  <button class="burger"
+          (click)="open()"
+  >
+    ≡
+  </button>
 } @else {
   <div class="menu">
+    <div>
     <button class="close"
             (click)="close()"
     >
       X
     </button>
-    <button (click)="export()"
-            [disabled]="exportDisabled()"
-    >
-      Export
-    </button>
-    <div class="danger">
-      Danger Zone
-      <button (click)="clearStorage()">Clear Storage</button>
-      <button (click)="clearQuests()">Remove all Quests</button>
-      <button (click)="unmarkLocations()">Mark all Locations as not done</button>
-    </div>
+
+    <h1>Menu</h1>
+    <h2>Sleeping Gods Tracker</h2>
+
+    <details>
+      <summary>Import & Export</summary>
+      <section>
+        <button [disabled]="exportDisabled()"
+                (click)="export()"
+        >
+          Export
+        </button>
+      </section>
+    </details>
+
+    <details class="danger">
+      <summary>Danger Zone</summary>
+      <section>
+        <button (click)="clearStorage()">Clear Storage</button>
+        <button (click)="clearQuests()">Remove all Quests</button>
+        <button (click)="unmarkLocations()">Mark all Locations as not done</button>
+      </section>
+    </details>
 
     <details>
       <summary>What is this?</summary>
-      <p>
-        This is an unofficial companion app for the board game <a [href]="gameUrl">Sleeping Gods by RedRavenGames</a>.
-      </p>
-      <p>
-        It can be used to track your progress in the game. If this app suits your needs, feel free to use it.
-      </p>
-      <p>
-        Not compatible with any expansions to the game.
-        Internationalization is not provided or planned.
-      </p>
-      <p>
-        There is no tracking, and no cookies are being used.
-        Anything you enter will be stored in your browser and never leave your device.
-      </p>
-      <p>
-        Code on <a [href]="codeUrl">gitHub</a>
-      </p>
+      <section>
+        <p>
+          This is an unofficial companion app for the board game <a [href]="gameUrl">Sleeping Gods by RedRavenGames</a>.
+        </p>
+        <p>
+          It can be used to track your progress in the game. If this app suits your needs, feel free to use it.
+        </p>
+        <p>
+          Not compatible with any expansions to the game.
+          Internationalization is not provided or planned.
+        </p>
+        <p>
+          There is no tracking, and no cookies are being used.
+          Anything you enter will be stored in your browser and never leave your device.
+        </p>
+        <p>
+          Code on <a [href]="codeUrl">gitHub</a>
+        </p>
+      </section>
     </details>
+
+    <details>
+      <summary>FAQ</summary>
+      <section>
+        <h2>
+          <del>Frequently</del>
+          <ins>Potentially</ins>
+          asked questions
+        </h2>
+        @for (q of faq; track $index) {
+          <details>
+            <summary>{{ q.title }}</summary>
+            <p>{{ q.answer }}</p>
+          </details>
+        }
+      </section>
+    </details>
+    </div>
   </div>
 }

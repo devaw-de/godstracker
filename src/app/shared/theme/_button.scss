@@ -13,33 +13,33 @@
 
 @mixin primary {
   @include -shared;
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  border-color: var(--color-primary);
+  background-color: var(--primary-600);
+  color: var(--primary-100);
+  border-color: var(--primary-700);
 
   &:not([disabled]) {
     &:hover,
     &:active {
-      background-color: var(--color-dark);
+      background-color: var(--primary-700);
+      border-color: var(--primary-700);
     }
   }
 
   &[disabled] {
-    background-color: var(--color-disabled);
+    background-color: var(--disabled-000);
   }
-
 }
 
 @mixin outline {
   @include -shared;
   background-color: transparent;
-  border-color: var(--color-primary) !important;
-  color: var(--color-white);
+  border-color: var(--primary-700);
+  color: var(--primary-000) !important;
 
   &:not([disabled]) {
     &:hover,
     &:active {
-      background-color: var(--color-primary) !important;
+      background-color: var(--primary-700) !important;
     }
   }
 }
@@ -48,10 +48,10 @@
   @include -shared;
   background-color: transparent;
   border-color: transparent;
-  color: var(--color-white);
+  color: var(--primary-000);
 
   &:hover,
   &:active {
-    color: var(--color-accent);
+    color: var(--primary-400);
   }
 }

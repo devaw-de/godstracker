@@ -1,0 +1,20 @@
+<header>
+  <h1>Select a Tag</h1>
+</header>
+<main>
+  @if (unusedTags()) {
+    @for (tag of unusedTags(); track $index) {
+      <button (click)="add(tag)">
+        {{ tag | humanReadableTag }}
+        {{ tag | tagIcon }}
+      </button>
+    }
+  }
+</main>
+<footer>
+  <button class="cancel"
+          (click)="add(undefined)"
+  >
+    Cancel
+  </button>
+</footer>

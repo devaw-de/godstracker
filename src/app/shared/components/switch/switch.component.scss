@@ -1,0 +1,57 @@
+@use '../../theme/utils';
+
+$halfSliderSize: 3rem;
+$indicatorSize: 2.25rem;
+$labelPadding: .125rem;
+
+:host {
+  input {
+    display: none;
+
+    &:checked {
+      & + label::after {
+        left: calc(2 * $halfSliderSize - $indicatorSize);
+      }
+
+      & + label {
+        background-color: var(--primary-600);
+
+        span {
+          margin: 0 calc(#{$indicatorSize} + #{$labelPadding}) 0 0;
+        }
+      }
+    }
+  }
+
+  label {
+    cursor: pointer;
+    position: relative;
+    width: calc(2 * (#{$halfSliderSize} + 1px));
+    height: calc(#{$indicatorSize} + 2px);
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: $indicatorSize;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: $indicatorSize;
+      height: $indicatorSize;
+      border-radius: 50%;
+      background-color: var(--primary-000);
+      top: 1px;
+      left: 1px;
+      transition: all 0.3s;
+    }
+
+    span {
+      display: block;
+      margin: 0 0 0 calc(#{$indicatorSize} + #{$labelPadding});
+      width: calc(2 * $halfSliderSize - $indicatorSize - $labelPadding);
+      text-align: center;
+      @include utils.truncate;
+    }
+  }
+}

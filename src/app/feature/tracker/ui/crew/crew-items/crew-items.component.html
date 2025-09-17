@@ -1,0 +1,23 @@
+<h4>
+  {{ title() }}
+  <button title="Add"
+          (click)="add.emit()"
+  >
+    +
+  </button>
+</h4>
+<ul>
+  @for (item of items(); track $index) {
+    <li>
+      {{ item }}
+      <button title="Remove this card"
+              (click)="remove.emit($index)"
+      >
+        -
+      </button>
+    </li>
+  }
+  @empty {
+    <li><small>none</small></li>
+  }
+</ul>

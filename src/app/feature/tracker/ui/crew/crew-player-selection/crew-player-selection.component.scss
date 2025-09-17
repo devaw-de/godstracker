@@ -1,0 +1,9 @@
+@use 'list';
+
+:host {
+  display: block;
+
+  ul {
+    @include list.default;
+  }
+}

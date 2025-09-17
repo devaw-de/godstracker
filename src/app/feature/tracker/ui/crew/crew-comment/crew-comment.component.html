@@ -1,0 +1,7 @@
+<label for="comment-{{ mateName() }}">Comment</label>
+<textarea #txt
+          id="comment-{{ mateName() }}"
+          rows="6"
+          placeholder="Comment"
+          (input)="updateComment.emit(txt.value)"
+>{{ comment() }}</textarea>

@@ -5,9 +5,11 @@ import { AppLocation, AppLocationTag, AppQuest, AppQuestWithAvailability } from 
 import { BadgeComponent, TextInputModalComponent } from '../../../../shared/components';
 import { QuestFinderModalComponent } from '../quest-finder';
 import { QUESTS_CARDS } from '../../data';
-import { LocationTagsComponent } from '../location-tags/location-tags.component';
-import { LocationSectionComponent } from '../location-section/location-section.component';
-import { LocationTagPipe } from '../location-tags/icon-tag.pipe';
+import { LocationTagsComponent } from './location-tags/location-tags.component';
+import { LocationSectionComponent } from './location-section/location-section.component';
+import { LocationTagsPreviewComponent } from './location-tags-preview/location-tags-preview.component';
+import { LocationCommentsComponent } from './location-commments/location-comments.component';
+import { SwitchComponent } from '../../../../shared/components/switch/switch.component';
 
 @Component({
   selector: 'app-location',
@@ -15,9 +17,12 @@ import { LocationTagPipe } from '../location-tags/icon-tag.pipe';
   styleUrl: './location.component.scss',
   imports: [
     BadgeComponent,
-    LocationTagsComponent,
+    LocationTagsPreviewComponent,
     LocationSectionComponent,
-    LocationTagPipe
+    LocationTagsPreviewComponent,
+    LocationTagsComponent,
+    LocationCommentsComponent,
+    SwitchComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -26,21 +31,21 @@ export class LocationComponent {
   readonly #dialog = inject(Dialog);
   readonly availableLocationTags = Object.values(AppLocationTag);
 
-  questCards = input.required<AppQuest[]>();
-  location = input.required<AppLocation>();
-  availableQuests = input.required<AppQuest[]>();
-  requirements = computed<AppQuestWithAvailability[]>(() => this.location().requires.map((id) => ({
+  readonly questCards = input.required<AppQuest[]>();
+  readonly location = input.required<AppLocation>();
+  readonly availableQuests = input.required<AppQuest[]>();
+  readonly requirements = computed<AppQuestWithAvailability[]>(() => this.location().requires.map((id) => ({
     id: id,
     name: QUESTS_CARDS.get(id),
     available: !!this.availableQuests().find((q) => q.id === id),
   })));
-  rewards = computed<AppQuestWithAvailability[]>(() => (this.location().rewards ?? []).map((id) => ({
+  readonly rewards = computed<AppQuestWithAvailability[]>(() => (this.location().rewards ?? []).map((id) => ({
     id: id,
     name: QUESTS_CARDS.get(id),
     available: !!this.availableQuests().find((q) => q.id === id)
   })));
 
-  locationChange$ = output<AppLocation>();
+  readonly locationChange$ = output<AppLocation>();
 
   protected deleteComment(index: number): void {
     const decision = confirm(`Are you sure you want to delete this comment for location ${this.location().id}?`);
@@ -113,7 +118,7 @@ export class LocationComponent {
   protected addRequirement(): void {
     const dialog = this.#dialog.open<number>(QuestFinderModalComponent, {
       data: {
-        cards: this.questCards(),
+        cards: this.questCards().filter((card) => !this.location().requires.includes(card.id)),
         badge: {
           mainText: this.location().id,
           subText: 'p. ' + this.location().page
@@ -161,7 +166,7 @@ export class LocationComponent {
   protected addReward(): void {
     const dialog = this.#dialog.open<number>(QuestFinderModalComponent, {
       data: {
-        cards: this.questCards(),
+        cards: this.questCards().filter((card) => !this.location().rewards.includes(card.id)),
         badge: {
           mainText: this.location().id,
           subText: 'p. ' + this.location().page

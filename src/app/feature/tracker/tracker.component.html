@@ -12,7 +12,7 @@
   <summary>Pages</summary>
   <app-page-selection [pages]="pages"
                       [selectedPage]="selectedPage()"
-                       (selectionChange$)="updateSelection($event)"
+                       (selectionChange)="updateSelection($event)"
   />
   @for (location of filteredLocations(); track location.id) {
     <app-location [questCards]="questCards"
@@ -21,4 +21,31 @@
                   (locationChange$)="updateLocation($event)"
     />
   }
+</details>
+
+<details>
+  <summary>Ship</summary>
+  <app-ship [room]="ship.room()"
+            [location]="ship.location()"
+            (locationChange)="updateShipLocation($event)"
+            (roomChange)="updateShipRoom($event)"
+  />
+</details>
+
+<details>
+  <summary>Items & XP</summary>
+  <app-items [items]="items()"
+             (itemsChanged)="updateItems($event)"
+  />
+</details>
+
+<details open>
+  <summary>Players & Crew</summary>
+  <app-players [players]="players()"
+               (playerChange)="updatePlayers($event)"
+  />
+  <app-crew [crew]="crew()"
+            [players]="players()"
+            (crewChange)="updateCrew($event)"
+  />
 </details>

@@ -1,0 +1,22 @@
+@if (quests()) {
+  <h3>
+    {{ heading() }}
+    <button (click)="add()">+</button>
+  </h3>
+  <div>
+    @for (item of quests(); track item.id) {
+
+      <button class="requirement"
+              [class.available]="item.available"
+              (click)="delete(item.id)"
+      >
+        @if (item.available) {
+          <span>🗸</span>
+        }
+        {{ item.name }}
+      </button>
+    } @empty {
+      <small>none</small>
+    }
+  </div>
+}

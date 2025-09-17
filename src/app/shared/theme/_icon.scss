@@ -1,0 +1,13 @@
+@mixin role-button {
+  font-size: 175%;
+  margin: 0 0.5rem;
+  color: var(--primary-600);
+
+  &:not(.disabled) {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    opacity: 0.25;
+  }
+}

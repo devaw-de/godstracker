@@ -6,24 +6,24 @@
 
   <main>
     <p>Required in:</p>
-    <p>
+    <p class="badges">
       @for (location of matchingLocations(); track $index) {
 
         <app-badge [mainText]="location.id.toString()"
                    [subText]="'p' + location.page.toString()"
         />
       } @empty {
-        <em>no matches</em>
+        <small>no matches</small>
       }
     </p>
     <p>Rewarded in</p>
-    <p>
+    <p class="badges">
       @for (location of rewardLocations(); track location.id) {
         <app-badge [mainText]="location.id.toString()"
                    [subText]="'p' + location.page.toString()"
         />
       } @empty {
-        <em>unknown</em>
+        <small>unknown</small>
       }
     </p>
 

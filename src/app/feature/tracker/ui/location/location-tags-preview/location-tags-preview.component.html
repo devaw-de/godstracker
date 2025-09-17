@@ -1,0 +1,7 @@
+<div>
+  @for (tag of tags(); track $index) {
+    <span [title]="tag | titlecase">
+          {{ tag | tagIcon }}
+        </span>
+  }
+</div>

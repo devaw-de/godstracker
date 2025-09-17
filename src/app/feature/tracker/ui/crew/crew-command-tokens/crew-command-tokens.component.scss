@@ -1,0 +1,14 @@
+@use 'list';
+@use 'button';
+
+:host {
+  display: block;
+
+  ul {
+    @include list.default;
+  }
+
+  button {
+    @include button.primary;
+  }
+}

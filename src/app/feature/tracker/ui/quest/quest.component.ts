@@ -9,6 +9,6 @@ import { AppQuest } from '../../model';
 })
 export class QuestComponent {
 
-  quest = input.required<AppQuest>();
+  readonly quest = input.required<AppQuest>();
 
 }

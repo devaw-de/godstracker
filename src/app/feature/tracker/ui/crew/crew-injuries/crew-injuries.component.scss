@@ -1,0 +1,14 @@
+@use 'list';
+@use 'icon';
+
+:host {
+  display: block;
+
+  ul {
+    @include list.default;
+  }
+
+  fa-icon[role="button"] {
+    @include icon.role-button;
+  }
+}

@@ -14,15 +14,15 @@ import { BadgeComponent } from '../../../../shared/components';
 })
 export class QuestDetailsModalComponent implements OnInit {
 
-  #data = inject(DIALOG_DATA);
-  #dialogRef = inject(DialogRef);
+  readonly #data = inject(DIALOG_DATA);
+  readonly #dialogRef = inject(DialogRef);
 
-  locations = signal<AppLocation[]>([]);
-  quest = signal<AppQuest | undefined>(undefined);
-  matchingLocations = computed<AppLocation[]>(() => this.locations()
+  readonly locations = signal<AppLocation[]>([]);
+  readonly quest = signal<AppQuest | undefined>(undefined);
+  readonly matchingLocations = computed<AppLocation[]>(() => this.locations()
     .filter((location) => location.requires.includes(this.quest()!.id))
   );
-  rewardLocations = computed<AppLocation[]>(() => this.locations()
+  readonly rewardLocations = computed<AppLocation[]>(() => this.locations()
     .filter((location) => location.rewards.includes(this.quest()!.id))
   );
 

@@ -1,0 +1,18 @@
+<span>Command tokens</span>
+<ul>
+  @for (token of commandTokens(); track $index) {
+    <li>
+      <button [disabled]="!token"
+              (click)="decrement.emit($index)"
+      >
+        -
+      </button>
+      {{ token }}
+      <button [disabled]="token > 2"
+              (click)="increment.emit($index)"
+      >
+        +
+      </button>
+    </li>
+  }
+</ul>

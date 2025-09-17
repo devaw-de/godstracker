@@ -1,30 +1,47 @@
-import { computed, inject, Injectable } from '@angular/core';
-import { AppQuest } from '../model';
-import { QuestsDbService } from './quests.db.service';
+import { inject, Injectable, signal } from '@angular/core';
+import { AppQuest, StorageKey } from '../model';
 import { QUESTS_CARDS } from './quest-cards';
+import { StorageService } from '../../../shared/services/storage.service';
+import { SgStorage } from '../../../shared/model/sg-storage';
 
 @Injectable({
   providedIn: 'root',
 })
-export class QuestsService {
+export class QuestsService implements SgStorage {
 
-  readonly #dbService = inject(QuestsDbService);
+  readonly #storageService = inject(StorageService);
 
-  quests = computed<AppQuest[]>(() => this.#dbService.quests().sort((a, b) => a.name.localeCompare(b.name)));
-  public readonly questCards = [...QUESTS_CARDS.entries()].map(card => ({
+  readonly #quests = signal<AppQuest[]>([]);
+  readonly quests = this.#quests.asReadonly();
+
+  readonly questCards = [...QUESTS_CARDS.entries()].map(card => ({
     id: card[0],
     name: card[1]
   }));
 
-  async add(quest: AppQuest): Promise<boolean> {
-    return this.#dbService.add(quest)
-      .then(() => true)
-      .catch(() => false);
+  constructor() {
+    this.initFromStorage();
   }
 
-  async delete(questId: number): Promise<boolean> {
-    return this.#dbService.remove(questId)
-      .then(() => true)
-      .catch(() => false);
+  initFromStorage(): void {
+    const storedQuests = this.#storageService.get<AppQuest[]>(StorageKey.QUESTS);
+    if (storedQuests) {
+      this.#quests.set(storedQuests);
+    }
+  }
+
+  add(quest: AppQuest): void {
+    const updatedQuests = [
+      ...this.quests(),
+      quest
+    ];
+    this.#quests.set(updatedQuests);
+    this.#storageService.set<AppQuest[]>(StorageKey.QUESTS, updatedQuests);
+  }
+
+  remove(questId: number): void {
+    const updatedQuests = this.quests().filter(quest => questId !== quest.id);
+    this.#quests.set(updatedQuests);
+    this.#storageService.set(StorageKey.QUESTS, updatedQuests);
   }
 }

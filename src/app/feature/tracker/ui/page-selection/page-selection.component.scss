@@ -3,12 +3,17 @@
 :host {
   display: flex;
   flex-flow: row wrap;
-  justify-content: flex-start;
+  justify-content: center;
   gap: .5rem;
+  max-width: 500px;
+  margin: 0 auto;
 
   button {
-    @include button.outline;
     min-width: 3rem !important;
+
+    &:not(.selected) {
+      @include button.outline;
+    }
 
     &.selected {
       @include button.primary

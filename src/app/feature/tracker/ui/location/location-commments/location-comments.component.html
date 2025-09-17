@@ -1,0 +1,16 @@
+<h3>
+  Comments
+  <button (click)="addComment.emit()">+</button>
+</h3>
+@for (comment of comments(); track $index) {
+  <span (click)="editComment.emit($index)">
+          {{ comment }}
+        </span>
+  <button class="delete"
+          (click)="deleteComment.emit($index)"
+  >
+    x
+  </button>
+} @empty {
+  <small>none</small>
+}

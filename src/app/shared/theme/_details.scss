@@ -1,0 +1,99 @@
+@mixin -base() {
+  padding: var(--padding-box);
+  border-radius: var(--border-radius-box);
+  margin: .5rem 0;
+  background-color: var(--secondary-600);
+  color: var(--secondary-100);
+
+  summary {
+    cursor: pointer;
+    transition: background-color 500ms;
+    padding: var(--padding-box);
+    border-radius: var(--border-radius-box);
+  }
+}
+
+@mixin -no-marker {
+  ::marker {
+    content: '';
+  }
+}
+
+@mixin -custom-marker {
+  &:not([open]) {
+    summary {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+
+      &:before {
+        content: '+';
+        padding: var(--padding-box);
+      }
+    }
+  }
+
+  &[open] {
+    summary {
+      position: relative;
+
+      &:before {
+        content: '-';
+        padding: var(--padding-box);
+      }
+    }
+  }
+}
+
+@mixin -close-icon {
+  &[open] {
+    summary {
+      &:after {
+        content: 'x';
+        position: absolute;
+        right: var(--padding-box);
+      }
+    }
+  }
+}
+
+@mixin default() {
+  @include -base;
+  @include -no-marker;
+  @include -custom-marker;
+  @include -close-icon;
+
+
+  summary {
+    &:hover,
+    &:active {
+      color: var(--primary-200);
+    }
+  }
+
+  &[open] {
+    summary {
+      font-weight: bold;
+      font-size: 125%;
+    }
+  }
+}
+
+@mixin second-level() {
+  @include -base;
+  @include -no-marker;
+  @include -close-icon;
+  background-color: var(--primary-800);
+
+  &[open] {
+    background-color: var(--primary-800);
+  }
+  summary {
+    position: relative;
+
+    &:hover,
+    &:active {
+      color: var(--primary-600);
+    }
+  }
+}

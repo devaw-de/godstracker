@@ -1,48 +1,39 @@
 @use 'button';
+@use 'details';
+
+$summaryWidth: 200px;
+$summaryHeight: 50px;
 
 :host {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
+  display: block;
   margin-top: .5rem;
+  position: relative;
 
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0 0 0 1rem;
-  }
+  details {
+    @include details.second-level;
 
-  div {
-    display: flex;
-    flex-flow: column nowrap;
-
-    &:first-of-type {
-      width: 30%;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    &[open] {
+      padding-bottom: 2.5rem;
     }
 
-    &:last-of-type {
-      flex-grow: 1;
-      border: 1px solid var(--color-primary);
-      position: relative;
-      border-radius: 6px;
+    summary {
+      display: flex;
 
-      &:after {
-        content: '';
-        position: absolute;
-        display: block;
-        width: 0;
-        z-index: 1;
-        border-style: solid;
-        border-color: transparent var(--color-primary);
-        border-width: 20px 20px 20px 0;
-        top: 50%;
-        left: -20px;
-        margin-top: -20px;
+      .name-and-tags {
+        margin: 0 60px;
+      }
+    }
+
+    .req-rew {
+      display: flex;
+      gap: .5rem;
+
+      & > section {
+        width: calc(50% - .5rem);
+
+        &:first-child {
+          border-right: 1px solid var(--disabled-000);
+        }
       }
     }
 
@@ -52,10 +43,6 @@
       &.done-status {
         display: flex;
         justify-content: flex-end;
-      }
-
-      em {
-        font-size: smaller;
       }
     }
 
@@ -69,23 +56,23 @@
         margin: 0 .25rem .25rem 0;
 
         &.available {
-          color: var(--color-accent);
+          color: var(--secondary-500);
         }
       }
     }
   }
 
   app-badge {
+    display: block;
     margin-bottom: .25rem;
   }
 
-  h3 {
-    font-size: .925rem;
-    font-weight: bold;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-between;
-    min-width: 100%;
+  app-location-tags {
+    padding-bottom: 1rem;
+  }
+
+  app-switch {
+    position: absolute;
+    right: .5rem;
   }
 }

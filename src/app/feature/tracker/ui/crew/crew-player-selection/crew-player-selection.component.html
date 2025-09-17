@@ -1,0 +1,11 @@
+<select #playerIndex
+        (change)="playerChange.emit(playerIndex.value)"
+>
+  @for (player of players(); track $index) {
+    <option [value]="$index"
+            [selected]="$index === selectedPlayer()"
+    >
+      {{ player }}
+    </option>
+  }
+</select>

@@ -1,0 +1,12 @@
+<h4>Tags</h4>
+<div>
+  @for (tag of currenTags(); track $index) {
+    <button (click)="remove(tag)">
+      {{ tag | humanReadableTag }}
+      {{ tag | tagIcon }}
+    </button>
+  } @empty {
+    <small>none</small>
+  }
+  <button (click)="add()">+</button>
+</div>

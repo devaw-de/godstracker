@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { LocationsDbService } from '../tracker/data/locations.db.service';
-import { QuestsDbService } from '../tracker/data/quests.db.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { TextModalComponent } from '../../shared/components/text-modal/text-modal.component';
+import { LocationsService, QuestsService, StorageService } from '../tracker/data';
+import { StorageKey } from '../tracker/model';
 
 @Component({
   selector: 'app-menu',
@@ -12,17 +12,29 @@ import { TextModalComponent } from '../../shared/components/text-modal/text-moda
 })
 export class MenuComponent {
 
-  readonly #locationsDbService = inject(LocationsDbService);
-  readonly #questsDbService = inject(QuestsDbService);
+  readonly #locationsService = inject(LocationsService);
+  readonly #questsService = inject(QuestsService);
+  readonly #storageService = inject(StorageService);
   readonly #dialog = inject(Dialog);
-  readonly gameUrl = 'https://www.redravengames.com/sleeping-gods/';
-  readonly codeUrl = '#';
 
-  showMenu = signal<boolean>(false);
-  exportDisabled = computed<boolean>(() => !this.#locationsDbService.locations().some(
+  protected readonly gameUrl = 'https://www.redravengames.com/sleeping-gods/';
+  protected readonly codeUrl = '#';
+  protected readonly faq = [
+    {
+      title: "Why is this so ugly?",
+      answer: "I'm not a designer"
+    },
+    {
+      title: "...",
+      answer: "..."
+    }
+  ];
+
+  readonly showMenu = signal<boolean>(false);
+  readonly exportDisabled = computed<boolean>(() => !this.#locationsService.locations().some(
         (location) => location.requires.length || location.comments?.length || location.rewards.length
       )
-      && !this.#questsDbService.quests().length
+      && !this.#questsService.quests().length
   );
 
   protected open(): void {
@@ -33,7 +45,7 @@ export class MenuComponent {
     this.showMenu.set(false);
   }
 
-  protected async clearStorage(): Promise<void> {
+  protected clearStorage(): void {
     const texts = [
       'Are you sure you want to clear storage?',
       'This will delete any input you made.',
@@ -43,48 +55,44 @@ export class MenuComponent {
     if (!decision) {
       return;
     }
-    await Promise.all([
-      this.#locationsDbService.clearAll(),
-      this.#questsDbService.clearAll()
-    ]);
+
+    for (const value of Object.values(StorageKey)) {
+      this.#storageService.remove(value);
+    }
     window.location.reload();
   }
 
-  protected async unmarkLocations(): Promise<void> {
+  protected unmarkLocations(): void {
     const texts = [
       'Are you sure?',
       'All Locations will be marked as not done.'
     ];
     const decision = confirm(texts.join(' '));
     if (decision) {
-      await this.#locationsDbService.unsetDoneStatus();
+      this.#locationsService.bulkMarkUndone();
     }
   }
 
-  protected async clearQuests(): Promise<void> {
+  protected clearQuests(): void {
     const texts = [
       'Are you sure?',
-      ' You will lose all quest cards!'
+      'You will lose all quest cards!'
     ];
     const decision = confirm(texts.join(' '));
     if (decision) {
-      await this.#questsDbService.clearAll();
+      this.#storageService.remove(StorageKey.QUESTS);
     }
   }
 
   protected export(): void {
     try {
       const json = JSON.stringify({
-        locations: this.#locationsDbService.locations().filter(
-          (location) => location.requires.length || location.rewards.length || location.comments?.length
-        ),
-        quests: this.#questsDbService.quests()
+        locations: this.#storageService.get(StorageKey.LOCATIONS),
+        quests: this.#storageService.get(StorageKey.QUESTS),
+        ships: this.#storageService.get(StorageKey.SHIP),
+        items: this.#storageService.get(StorageKey.ITEMS),
       });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
-      link.download = 'godsTracker.json';
-      link.click();
-      link.remove();
+      this.#downloadJsonStringAsFile(json);
 
       this.#dialog.open<void>(TextModalComponent, {
         data: {
@@ -103,5 +111,13 @@ export class MenuComponent {
         }
       });
     }
+  }
+
+  #downloadJsonStringAsFile(json: string): void {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+    link.download = 'godsTracker.json';
+    link.click();
+    link.remove();
   }
 }

@@ -1,0 +1,44 @@
+@use 'button';
+
+div {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  width: 100%;
+  margin: 1rem;
+
+  label {
+    display: inline-block;
+    width: 110px;
+
+    fa-icon {
+      margin-right: .5rem;
+      opacity: .7;
+    }
+  }
+  p {
+    margin: 0;
+
+    button {
+      @include button.primary;
+      font-size: small;
+      padding: 3px 8px;
+
+      &:last-of-type {
+        margin-left: 2rem;
+        background-color: var(--danger-500);
+        font-size: smaller;
+
+        &:hover {
+          background-color: var(--danger-000);
+        }
+      }
+    }
+
+    span {
+      display: inline-block;
+      width: 2rem;
+      text-align: center;
+    }
+  }
+}

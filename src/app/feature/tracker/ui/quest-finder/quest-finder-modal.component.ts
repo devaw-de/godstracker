@@ -26,17 +26,17 @@ export class QuestFinderModalComponent implements OnInit {
   readonly #dialogRef = inject(DialogRef);
   readonly #data = inject(DIALOG_DATA);
 
-  readonly maxQuests = 8;
+  protected readonly maxQuests = 8;
 
-  #questCards = signal<AppQuest[]>([]);
-  #searchTerm = signal<string>('');
-  #badge = signal<{ mainText: string; subText: string } | undefined>(undefined);
-  #heading = signal<string>('');
-  quests = computed<AppQuest[]>(() => this.#questCards()?.filter(
+  readonly #questCards = signal<AppQuest[]>([]);
+  readonly #searchTerm = signal<string>('');
+  readonly #badge = signal<{ mainText: string; subText: string } | undefined>(undefined);
+  readonly #heading = signal<string>('');
+  readonly quests = computed<AppQuest[]>(() => this.#questCards()?.filter(
     (quest) => !this.#searchTerm() || quest.name?.match(new RegExp(this.#searchTerm()))?.length
   ));
-  badge = this.#badge.asReadonly();
-  heading = this.#heading.asReadonly();
+  readonly badge = this.#badge.asReadonly();
+  readonly heading = this.#heading.asReadonly();
 
   ngOnInit(): void {
     this.#questCards.set(this.#data.cards);

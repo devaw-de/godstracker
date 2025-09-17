@@ -1,8 +1,14 @@
 @use 'button';
+@use 'details';
 
 button {
   @include button.ghost;
+  &.burger {
   font-size: 2rem;
+  position: relative;
+  display: block;
+  left: 1rem;
+  }
 }
 
 .menu {
@@ -10,30 +16,43 @@ button {
   position: fixed;
   inset: 0;
   padding: 1rem;
-  background-color: var(--color-black);
+  background-color: var(--primary-900);
   display: flex;
   flex-flow: column nowrap;
   gap: 1rem;
 
-  .danger {
-    border-left: 3px solid red;
-    border-right: 3px solid red;
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 1rem;
-    padding: 1rem;
-    margin: 1rem 0;
+  & > div {
+    width: 960px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  details {
+    @include details.default;
+
+    &.danger {
+      &[open] {
+        border-left: 3px solid var(--danger-000);
+        border-right: 3px solid var(--danger-000);
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 1rem;
+      }
+    }
   }
 
   button {
     font-size: 1rem;
+
     &:not(.close) {
       @include button.primary;
     }
 
     &.close {
       @include button.outline;
-      align-self: flex-end;
+      position: absolute;
+      top: .5rem;
+      right: 0;
     }
   }
 
@@ -43,5 +62,15 @@ button {
 
   summary {
     cursor: pointer;
+  }
+
+  section {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    p {
+      max-width: 80ch;
+    }
   }
 }

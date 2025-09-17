@@ -1,0 +1,30 @@
+@use '../../../../../shared/theme/button';
+
+:host {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+    gap: 1rem;
+  }
+
+  footer {
+    display: flex;
+    flex-flow: row-reverse;
+  }
+
+  button {
+    @include button.primary;
+
+    &.cancel {
+      @include button.outline;
+    }
+  }
+}

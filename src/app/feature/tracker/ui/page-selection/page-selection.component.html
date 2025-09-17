@@ -1,6 +1,6 @@
 @for (page of pages(); track page) {
   <button [class.selected]="page === selectedPage()"
-          (click)="selectionChange$.emit(page)"
+          (click)="selectionChange.emit(page)"
   >
     {{ page }}
   </button>

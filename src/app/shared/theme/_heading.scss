@@ -1,0 +1,21 @@
+@use 'button';
+
+@mixin h3 {
+  font-size: .925rem;
+  font-weight: bold;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 100%;
+}
+
+@mixin h4-with-button {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  button {
+    @include button.outline
+  }
+}

@@ -2,46 +2,67 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { Dialog } from '@angular/cdk/dialog';
 import { take } from 'rxjs';
 import {
+  CrewComponent,
+  ItemsComponent,
   LocationComponent,
   PageSelectionComponent,
+  PlayersComponent,
   QuestComponent,
   QuestDetailsModalComponent,
-  QuestFinderModalComponent
+  QuestFinderModalComponent,
+  ShipComponent
 } from './ui/';
-import { AppLocation, AppQuest } from './model/';
-import { LocationsService, PAGES, QuestsService } from './data/';
+import { AppItems, AppLocation, AppQuest, Crew, ShipRoom } from './model/';
+import { LocationsService, PAGES, QuestsService, ItemsService, PlayerService, CrewService } from './data/';
+import { ShipService } from './data/ship.service';
 
 @Component({
   selector: 'app-tracker',
   templateUrl: './tracker.component.html',
   styleUrl: './tracker.component.scss',
   imports: [
-    QuestComponent,
+    CrewComponent,
+    ItemsComponent,
     LocationComponent,
-    PageSelectionComponent
+    PageSelectionComponent,
+    PlayersComponent,
+    QuestComponent,
+    ShipComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrackerComponent {
 
-  readonly #locationsService = inject(LocationsService);
-  readonly #questsService = inject(QuestsService);
+  readonly #crewService = inject(CrewService);
   readonly #dialog = inject(Dialog);
+  readonly #itemsService = inject(ItemsService);
+  readonly #locationsService = inject(LocationsService);
+  readonly #playerService = inject(PlayerService);
+  readonly #questsService = inject(QuestsService);
+  readonly #shipService = inject(ShipService);
 
   readonly pages: number[] = Array.from({ length: PAGES.length }).map((_, index) => index + 2);
   readonly questCards: AppQuest[] = this.#questsService.questCards;
 
-  selectedPage = signal<number>(2);
-  filteredLocations = computed<AppLocation[]>(() => this.#locationsService.locations()
+  readonly selectedPage = signal<number>(2);
+  readonly filteredLocations = computed<AppLocation[]>(() => this.#locationsService.locations()
     .filter((location) => this.selectedPage() === location.page)
   );
-  quests = this.#questsService.quests;
+  readonly crew = this.#crewService.crew;
+  readonly quests = this.#questsService.quests;
+  readonly players = this.#playerService.players;
+  readonly items = this.#itemsService.items.asReadonly();
+  readonly ship = {
+    location: this.#shipService.lastLocation,
+    room: this.#shipService.lastShipRoom
+  };
 
   protected updateSelection(ev: number): void {
     this.selectedPage.set(ev);
   }
 
   protected updateLocation(location: AppLocation): void {
+    console.warn(location);
     this.#locationsService.update(location);
   }
 
@@ -78,10 +99,30 @@ export class TrackerComponent {
       })
   }
 
+  protected updatePlayers(players: string[]): void {
+    this.#playerService.update(players);
+  }
+
+  protected updateCrew(crew: Crew[]): void {
+    this.#crewService.updateCrew(crew);
+  }
+
+  protected updateItems(items: AppItems): void {
+    this.#itemsService.update(items);
+  }
+
+  protected updateShipLocation(location: number): void {
+    this.#shipService.updateLastLocation(location);
+  }
+
+  protected updateShipRoom(room: ShipRoom): void {
+    this.#shipService.updateLastShipRoom(room);
+  }
+
   #deleteQuest(id: number): void {
     const decision = confirm(`Are you sure you want to delete Quest ${id}?`);
     if (decision) {
-      this.#questsService.delete(id);
+      this.#questsService.remove(id);
     }
   }
 }

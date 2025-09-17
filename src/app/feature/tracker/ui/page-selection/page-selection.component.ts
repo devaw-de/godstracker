@@ -1,10 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
 
-interface Page {
-  value: number;
-  selected: boolean;
-}
-
 @Component({
   selector: 'app-page-selection',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -13,9 +8,9 @@ interface Page {
 })
 export class PageSelectionComponent {
 
-  pages = input.required<number[]>();
-  selectedPage = input.required<number>();
+  readonly pages = input.required<number[]>();
+  readonly selectedPage = input.required<number>();
 
-  selectionChange$ = output<number>();
+  readonly selectionChange = output<number>();
 
 }

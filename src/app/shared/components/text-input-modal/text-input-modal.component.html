@@ -1,9 +1,11 @@
 <header>
   <h1>{{ data.heading }}</h1>
-  <app-badge [mainText]="data.badge.mainText"
-             [subText]="'p. ' + data.badge.subText"
-             [caption]="data.badge.caption"
-  />
+  @if (data.badge) {
+    <app-badge [mainText]="data.badge.mainText"
+               [subText]="'p. ' + data.badge.subText"
+               [caption]="data.badge.caption"
+    />
+  }
 </header>
 <main>
   <label>

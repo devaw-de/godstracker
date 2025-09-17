@@ -1,0 +1,21 @@
+<span>Injuries</span>
+<div class="injuries">
+  <fa-icon [tabindex]="0"
+           role="button"
+           title="Remove one injury"
+           [icon]="icons.heartMinus"
+           [class.disabled]="!injuries()"
+           (click)="decreaseInjuries()"
+  ></fa-icon>
+  @for (heart of injuriesHearts(); track $index) {
+    <fa-icon [icon]="heart ? icons.filledHeart : icons.emptyHeart"></fa-icon>
+  }
+  {{ injuries() }}
+  <fa-icon [tabindex]="0"
+           role="button"
+           title="Add one injury"
+           [icon]="icons.heartPlus"
+           [class.disabled]="injuries() >= maxHealth()"
+           (click)="increaseInjuries()"
+  ></fa-icon>
+</div>

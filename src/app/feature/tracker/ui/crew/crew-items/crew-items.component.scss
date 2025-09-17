@@ -1,0 +1,23 @@
+@use 'list';
+@use 'button';
+@use 'heading';
+
+:host {
+  display: block;
+
+  h4 {
+    @include heading.h4-with-button;
+
+    button {
+      @include button.primary;
+    }
+  }
+
+  ul {
+    @include list.default;
+
+    button {
+      @include button.outline;
+    }
+  }
+}

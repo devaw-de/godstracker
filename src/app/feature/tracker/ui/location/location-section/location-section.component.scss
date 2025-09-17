@@ -1,0 +1,25 @@
+@use 'button';
+@use 'heading';
+@use 'utils';
+
+h3 {
+  @include heading.h3;
+}
+
+div {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: .25rem;
+}
+
+button {
+  &.requirement {
+    @include button.outline;
+    @include utils.truncate;
+    text-transform: uppercase;
+  }
+
+  &:not(.requirement) {
+    @include button.primary;
+  }
+}

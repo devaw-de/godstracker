@@ -17,6 +17,5 @@ export interface AppLocation {
   done?: boolean;
   tags?: AppLocationTag[];
   // TODO: filter out quest cards you already have
-  // TODO: button in menu "start a new game"
-  // TODO: xp counter
+  // TODO: button in menu "start a new game"  / with easy mode
 }

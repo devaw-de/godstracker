@@ -1,51 +1,49 @@
-<div>
-  <app-badge [mainText]="'' + location().id"
-             [subText]="'p. ' + location().page"
-             [caption]="location().title"
-             [done]="location().done"
-  />
-  @for (tag of location().tags; track $index) {
-    {{ tag | tagIcon }}
-  }
-</div>
-<div>
-  <section>
-    <app-location-section [heading]="'Requirements'"
-                          [quests]="requirements()"
-                          (add$)="addRequirement()"
-                          (delete$)="deletedRequirement($event)"
+<details>
+  <summary>
+    <app-badge [mainText]="'' + location().id"
+               [subText]="'p. ' + location().page"
+               [done]="location().done"
     />
-  </section>
-  <section>
-    <app-location-section [heading]="'Rewards'"
-                          [quests]="rewards()"
-                          (add$)="addReward()"
-                          (delete$)="deletedReward($event)"
-    />
-  </section>
-  <section>
-    <h3>
-      Comments
-      <button (click)="addComment()">+</button>
-    </h3>
-    @for (comment of location().comments; track $index) {
-      <span (click)="editComment($index)">
-          {{ comment }}
-        </span>
-      <button (click)="deleteComment($index)">x</button>
-    } @empty {
-      <em>none</em>
-    }
-  </section>
-  <section>
-    <app-location-tags [allTags]="availableLocationTags"
-                       [currenTags]="location().tags ?? []"
-                       (tagChange$)="updateTags($event)"
-    />
-    @if (location().done) {
-      <button (click)="setDoneStatus(false)">- done</button>
-    } @else {
-      <button (click)="setDoneStatus(true)">+ done</button>
-    }
-  </section>
-</div>
+    <div class="name-and-tags">
+      {{ location().title }}
+      <app-location-tags-preview [tags]="location().tags"/>
+    </div>
+  </summary>
+  <div class="content">
+    <div class="req-rew">
+      <section>
+        <app-location-section [heading]="'Requirements'"
+                              [quests]="requirements()"
+                              (addQuest)="addRequirement()"
+                              (deleteQuest)="deletedRequirement($event)"
+        />
+      </section>
+      <section>
+        <app-location-section [heading]="'Rewards'"
+                              [quests]="rewards()"
+                              (addQuest)="addReward()"
+                              (deleteQuest)="deletedReward($event)"
+        />
+      </section>
+    </div>
+    <section>
+      <app-location-comments [comments]="location().comments ?? []"
+                             (addComment)="addComment()"
+                             (deleteComment)="deleteComment($event)"
+                             (editComment)="editComment($event)"
+      />
+    </section>
+    <section>
+      <app-location-tags [allTags]="availableLocationTags"
+                         [currenTags]="location().tags ?? []"
+                         (tagChange)="updateTags($event)"
+      />
+      <app-switch #switchElement
+                  [checkedLabel]="'done'"
+                  [uncheckedLabel]="'not done'"
+                  [isChecked]="!!location().done"
+                  (click)="setDoneStatus(!switchElement.isChecked())"
+      />
+    </section>
+  </div>
+</details>

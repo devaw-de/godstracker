@@ -1,17 +1,47 @@
-import { inject, Injectable } from '@angular/core';
-import { AppLocation } from '../model';
-import { LocationsDbService } from './locations.db.service';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { AppLocation, StorageKey } from '../model';
+import { StorageService } from '../../../shared/services/storage.service';
+import { LOCATIONS } from './locations';
+import { SgStorage } from '../../../shared/model/sg-storage';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LocationsService {
+export class LocationsService implements SgStorage {
 
-  readonly #dbService = inject(LocationsDbService);
+  readonly #storageService = inject(StorageService);
 
-  locations = this.#dbService.locations;
+  readonly #locations = signal<AppLocation[]>(LOCATIONS);
+  readonly locations = computed(() => this.#locations().sort((a, b) =>
+     a.id - b.id
+  ));
+
+  constructor() {
+    this.initFromStorage();
+  }
+
+  initFromStorage(): void {
+    const storedLocations = this.#storageService.get<AppLocation[]>(StorageKey.LOCATIONS);
+    if (storedLocations) {
+      this.#locations.set(storedLocations);
+    }
+  }
 
   update(location: AppLocation) {
-    this.#dbService.update(location);
+    const locations = [
+      ...this.locations().filter((loc) => loc.id !== location.id),
+      location
+    ];
+    this.#storageService.set<AppLocation[]>(StorageKey.LOCATIONS, locations);
+    this.#locations.set(locations);
+  }
+
+  bulkMarkUndone(): void {
+    const locations = this.locations().map((location) => ({
+      ...location,
+      done: false
+    }))
+    this.#storageService.set<AppLocation[]>(StorageKey.LOCATIONS, locations);
+    this.#locations.set(locations);
   }
 }

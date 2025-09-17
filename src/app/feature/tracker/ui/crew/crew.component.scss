@@ -1,0 +1,18 @@
+@use 'details';
+
+:host {
+  display: block;
+  padding: 1rem;
+
+  details {
+    @include details.second-level;
+
+    app-crew-player-selection,
+    app-crew-command-tokens,
+    app-crew-items,
+    app-crew-injuries,
+    app-crew-comment {
+      margin-top: 1rem;
+    }
+  }
+}

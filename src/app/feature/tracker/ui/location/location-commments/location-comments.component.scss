@@ -1,0 +1,14 @@
+@use 'button';
+@use 'heading';
+
+h3 {
+  @include heading.h3;
+}
+
+button {
+  @include button.primary;
+
+  &.delete {
+    @include button.outline;
+  }
+}
