@@ -1,7 +1,7 @@
 @for (item of itemTypes; track $index) {
   <div class="{{ item }}">
     <div class="label">
-      <fa-icon [icon]="icons[item]"></fa-icon>
+      <fa-icon [icon]="icons[item]"/>
       {{ item | titlecase }}
     </div>
     <p>

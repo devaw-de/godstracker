@@ -27,7 +27,7 @@ export class LocationsService implements SgStorage {
     }
   }
 
-  update(location: AppLocation) {
+  update(location: AppLocation): void {
     const locations = [
       ...this.locations().filter((loc) => loc.id !== location.id),
       location

@@ -41,7 +41,7 @@ export class CrewComponent {
 
   crewChange = output<Crew[]>();
 
-  protected updateControllingPlayer(crewMate: Crew, ownerIndex: string) {
+  protected updateControllingPlayer(crewMate: Crew, ownerIndex: string): void {
     this.crewChange.emit([
       ...this.crew().filter((mate) => mate.name !== crewMate.name),
       {
@@ -63,7 +63,7 @@ export class CrewComponent {
     ])
   }
 
-  protected incrementInjuries(mate: Crew, value: 1 | -1) {
+  protected incrementInjuries(mate: Crew, value: 1 | -1): void {
     this.crewChange.emit([
       ...this.crew().filter((c) => c.name !== mate.name),
       {
