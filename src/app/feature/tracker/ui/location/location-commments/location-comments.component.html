@@ -1,13 +1,24 @@
 <h3>
   Comments
-  <button (click)="addComment.emit()">+</button>
+  <button (click)="addComment.emit()"
+          (keydown.enter)="addComment.emit()"
+          (keydown.space)="addComment.emit()"
+  >
+    +
+  </button>
 </h3>
 @for (comment of comments(); track $index) {
-  <span (click)="editComment.emit($index)">
+  <span [tabindex]="0"
+        (click)="editComment.emit($index)"
+        (keydown.enter)="editComment.emit($index)"
+        (keydown.space)="editComment.emit($index)"
+  >
           {{ comment }}
         </span>
   <button class="delete"
           (click)="deleteComment.emit($index)"
+          (keydown.enter)="deleteComment.emit($index)"
+          (keydown.space)="deleteComment.emit($index)"
   >
     x
   </button>

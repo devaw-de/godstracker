@@ -6,6 +6,8 @@
            [icon]="icons.heartMinus"
            [class.disabled]="!injuries()"
            (click)="decreaseInjuries()"
+           (keydown.enter)="decreaseInjuries()"
+           (keydown.space)="decreaseInjuries()"
   ></fa-icon>
   @for (heart of injuriesHearts(); track $index) {
     <fa-icon [icon]="heart ? icons.filledHeart : icons.emptyHeart"></fa-icon>
@@ -17,5 +19,7 @@
            [icon]="icons.heartPlus"
            [class.disabled]="injuries() >= maxHealth()"
            (click)="increaseInjuries()"
+           (keydown.enter)="increaseInjuries()"
+           (keydown.space)="increaseInjuries()"
   ></fa-icon>
 </div>

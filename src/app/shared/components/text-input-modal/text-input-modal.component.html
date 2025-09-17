@@ -17,6 +17,16 @@
   </label>
 </main>
 <footer>
-  <button (click)="save(modalInput.value)">Save</button>
-  <button (click)="cancel()">Cancel</button>
+  <button (click)="save(modalInput.value)"
+          (keydown.enter)="save(modalInput.value)"
+          (keydown.space)="save(modalInput.value)"
+  >
+    Save
+  </button>
+  <button (click)="cancel()"
+          (keydown.enter)="cancel()"
+          (keydown.space)="cancel()"
+  >
+    Cancel
+  </button>
 </footer>

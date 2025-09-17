@@ -7,7 +7,9 @@ import { StorageKey } from '../../feature/tracker/model';
 export class StorageService {
   set<T>(key: string, value: T): void {
     const item = localStorage.getItem('key');
-    localStorage.removeItem('key');
+    if (!item) {
+      localStorage.removeItem('key');
+    }
     localStorage.setItem(key, JSON.stringify(value));
   }
 
@@ -19,7 +21,7 @@ export class StorageService {
     return undefined;
   }
 
-  remove<T>(key: StorageKey): void {
+  remove(key: StorageKey): void {
     localStorage.removeItem(key);
   }
 }

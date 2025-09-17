@@ -27,7 +27,7 @@ export class PlayersComponent {
 
   readonly playerChange = output<string[]>();
 
-  protected addPlayer(name: string): void {
+  protected addPlayer(): void {
     if (this.players().length >= this.maxPlayers) {
       return;
     }

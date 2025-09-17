@@ -1,21 +1,31 @@
 @for (item of itemTypes; track $index) {
   <div class="{{ item }}">
-    <label>
+    <div class="label">
       <fa-icon [icon]="icons[item]"></fa-icon>
       {{ item | titlecase }}
-    </label>
+    </div>
     <p>
       <button [disabled]="items()[item] < 1"
               (click)="increment(item, -1)"
+              (keydown.enter)="increment(item, -1)"
+              (keydown.space)="increment(item, -1)"
       >
         -
       </button>
       <span>{{ items()[item] }}</span>
       <button [disabled]="items()[item] >= maxItemCount"
-              (click)="increment(item, 1)">
+              (click)="increment(item, 1)"
+              (keydown.enter)="increment(item, 1)"
+              (keydown.space)="increment(item, 1)"
+      >
         +
       </button>
-      <button (click)="reset(item)">x</button>
+      <button (click)="reset(item)"
+              (keydown.enter)="reset(item)"
+              (keydown.space)="reset(item)"
+      >
+        x
+      </button>
     </p>
   </div>
 }

@@ -4,13 +4,17 @@
     <button class="delete"
             [disabled]="players().length <= minPlayers"
             (click)="removePlayer($index)"
+            (keydown.enter)="removePlayer($index)"
+            (keydown.space)="removePlayer($index)"
     >
       <fa-icon [icon]="faMinus"></fa-icon>
     </button>
   </p>
 }
 <button [disabled]="players().length >= maxPlayers"
-        (click)="addPlayer('test')"
+        (click)="addPlayer()"
+        (keydown.enter)="addPlayer()"
+        (keydown.space)="addPlayer()"
 >
   + Add Player
 </button>

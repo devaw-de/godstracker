@@ -7,5 +7,10 @@
   }
 </main>
 <footer>
-  <button (click)="close()">Ok</button>
+  <button (click)="close()"
+          (keydown.enter)="close()"
+          (keydown.space)="close()"
+  >
+    Ok
+  </button>
 </footer>

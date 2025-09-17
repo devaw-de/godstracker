@@ -4,12 +4,16 @@
     <li>
       <button [disabled]="!token"
               (click)="decrement.emit($index)"
+              (keydown.enter)="decrement.emit($index)"
+              (keydown.space)="decrement.emit($index)"
       >
         -
       </button>
       {{ token }}
       <button [disabled]="token > 2"
               (click)="increment.emit($index)"
+              (keydown.enter)="increment.emit($index)"
+              (keydown.space)="increment.emit($index)"
       >
         +
       </button>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Dialog } from '@angular/cdk/dialog';
-import { TextModalComponent } from '../../shared/components/text-modal/text-modal.component';
+import { TextModalComponent } from '../../shared/components';
 import { LocationsService, QuestsService, StorageService } from '../tracker/data';
 import { StorageKey } from '../tracker/model';
 

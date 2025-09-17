@@ -4,7 +4,10 @@
 <main>
   @if (unusedTags()) {
     @for (tag of unusedTags(); track $index) {
-      <button (click)="add(tag)">
+      <button (click)="add(tag)"
+              (keydown.enter)="add(tag)"
+              (keydown.space)="add(tag)"
+      >
         {{ tag | humanReadableTag }}
         {{ tag | tagIcon }}
       </button>
@@ -14,6 +17,8 @@
 <footer>
   <button class="cancel"
           (click)="add(undefined)"
+          (keydown.enter)="add(undefined)"
+          (keydown.space)="add(undefined)"
   >
     Cancel
   </button>

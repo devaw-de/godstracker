@@ -2,6 +2,8 @@
   {{ title() }}
   <button title="Add"
           (click)="add.emit()"
+          (keydown.enter)="add.emit()"
+          (keydown.space)="add.emit()"
   >
     +
   </button>
@@ -12,6 +14,8 @@
       {{ item }}
       <button title="Remove this card"
               (click)="remove.emit($index)"
+              (keydown.enter)="remove.emit($index)"
+              (keydown.space)="remove.emit($index)"
       >
         -
       </button>

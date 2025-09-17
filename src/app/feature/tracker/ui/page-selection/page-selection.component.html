@@ -1,6 +1,8 @@
 @for (page of pages(); track page) {
   <button [class.selected]="page === selectedPage()"
           (click)="selectionChange.emit(page)"
+          (keydown.enter)="selectionChange.emit(page)"
+          (keydown.space)="selectionChange.emit(page)"
   >
     {{ page }}
   </button>

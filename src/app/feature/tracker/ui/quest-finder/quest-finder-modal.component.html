@@ -20,7 +20,12 @@
       <ul>
         @for (quest of quests() | slice: 0:maxQuests; track quest.id) {
           <li>
-            <button (click)="accept(quest.id)">{{ quest.name }}</button>
+            <button (click)="accept(quest.id)"
+                    (keydown.enter)="accept(quest.id)"
+                    (keydown.space)="accept(quest.id)"
+            >
+              {{ quest.name }}
+            </button>
           </li>
         } @empty {
           nothing found
@@ -33,5 +38,10 @@
   </div>
 </main>
 <footer>
-  <button (click)="cancel()">Cancel</button>
+  <button (click)="cancel()"
+          (keydown.enter)="cancel()"
+          (keydown.space)="cancel()"
+  >
+    Cancel
+  </button>
 </footer>

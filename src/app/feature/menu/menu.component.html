@@ -1,6 +1,8 @@
 @if (!showMenu()) {
   <button class="burger"
           (click)="open()"
+          (keydown.enter)="open()"
+          (keydown.space)="open()"
   >
     ≡
   </button>
@@ -9,6 +11,8 @@
     <div>
     <button class="close"
             (click)="close()"
+            (keydown.enter)="close()"
+            (keydown.space)="close()"
     >
       X
     </button>
@@ -21,6 +25,8 @@
       <section>
         <button [disabled]="exportDisabled()"
                 (click)="export()"
+                (keydown.enter)="export()"
+                (keydown.space)="export()"
         >
           Export
         </button>
@@ -30,9 +36,24 @@
     <details class="danger">
       <summary>Danger Zone</summary>
       <section>
-        <button (click)="clearStorage()">Clear Storage</button>
-        <button (click)="clearQuests()">Remove all Quests</button>
-        <button (click)="unmarkLocations()">Mark all Locations as not done</button>
+        <button (click)="clearStorage()"
+                (keydown.enter)="clearStorage()"
+                (keydown.space)="clearStorage()"
+        >
+          Clear Storage
+        </button>
+        <button (click)="clearQuests()"
+                (keydown.enter)="clearQuests()"
+                (keydown.space)="clearQuests()"
+        >
+          Remove all Quests
+        </button>
+        <button (click)="unmarkLocations()"
+                (keydown.enter)="unmarkLocations()"
+                (keydown.space)="unmarkLocations()"
+        >
+          Mark all Locations as not done
+        </button>
       </section>
     </details>
 

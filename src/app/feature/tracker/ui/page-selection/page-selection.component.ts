@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-page-selection',
@@ -7,7 +7,6 @@ import { ChangeDetectionStrategy, Component, input, output, signal } from '@angu
   styleUrl: './page-selection.component.scss'
 })
 export class PageSelectionComponent {
-
   readonly pages = input.required<number[]>();
   readonly selectedPage = input.required<number>();
 

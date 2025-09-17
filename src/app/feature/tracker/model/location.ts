@@ -16,6 +16,4 @@ export interface AppLocation {
   comments?: string[];
   done?: boolean;
   tags?: AppLocationTag[];
-  // TODO: filter out quest cards you already have
-  // TODO: button in menu "start a new game"  / with easy mode
 }

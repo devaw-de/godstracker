@@ -3,9 +3,16 @@
   @for (quest of quests(); track quest.id) {
     <app-quest [quest]="quest"
                (click)="showQuestDetails(quest.id)"
+               (keydown.enter)="showQuestDetails(quest.id)"
+               (keydown.space)="showQuestDetails(quest.id)"
     />
   }
-  <button (click)="addQuest()">+</button>
+  <button (click)="addQuest()"
+          (keydown.enter)="addQuest()"
+          (keydown.space)="addQuest()"
+  >
+    +
+  </button>
 </details>
 
 <details [open]="true">
