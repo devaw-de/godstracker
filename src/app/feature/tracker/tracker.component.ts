@@ -62,7 +62,6 @@ export class TrackerComponent {
   }
 
   protected updateLocation(location: AppLocation): void {
-    console.warn(location);
     this.#locationsService.update(location);
   }
 

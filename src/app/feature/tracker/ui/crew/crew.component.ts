@@ -42,7 +42,6 @@ export class CrewComponent {
   crewChange = output<Crew[]>();
 
   protected updateControllingPlayer(crewMate: Crew, ownerIndex: string) {
-    console.log(ownerIndex);
     this.crewChange.emit([
       ...this.crew().filter((mate) => mate.name !== crewMate.name),
       {
