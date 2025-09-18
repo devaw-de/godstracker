@@ -16,7 +16,12 @@ export class StorageService {
   get<T>(key: StorageKey): T | undefined {
     const storedItem = localStorage.getItem(key);
     if (storedItem) {
-      return JSON.parse(storedItem);
+      try {
+        return JSON.parse(storedItem);
+      }
+      catch {
+        return undefined;
+      }
     }
     return undefined;
   }

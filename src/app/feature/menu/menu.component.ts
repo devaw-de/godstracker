@@ -2,12 +2,35 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { Dialog } from '@angular/cdk/dialog';
 import { TextModalComponent } from '../../shared/components';
 import { LocationsService, QuestsService, StorageService } from '../tracker/data';
-import { StorageKey } from '../tracker/model';
+import { AppItems, AppLocation, AppQuest, Crew, ShipRoom, StorageKey } from '../tracker/model';
+import {
+  FileSelectionModalComponent
+} from '../../shared/components/file-selection-modal/file-selection-modal.component';
+import { take } from 'rxjs';
+import { FAQ } from './faq/faq';
+import { faCheckCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { FaqComponent } from './faq/faq.component';
+import { ExplanationComponent } from './explanation/explanation.component';
+
+interface Dto {
+  items: AppItems;
+  locations: AppLocation[];
+  quests: AppQuest[];
+  ships: {
+    room: ShipRoom;
+    location: number;
+  };
+  crew: Crew;
+}
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
+  imports: [
+    FaqComponent,
+    ExplanationComponent
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuComponent {
@@ -18,17 +41,8 @@ export class MenuComponent {
   readonly #dialog = inject(Dialog);
 
   protected readonly gameUrl = 'https://www.redravengames.com/sleeping-gods/';
-  protected readonly codeUrl = '#';
-  protected readonly faq = [
-    {
-      title: "Why is this so ugly?",
-      answer: "I'm not a designer"
-    },
-    {
-      title: "...",
-      answer: "..."
-    }
-  ];
+  protected readonly codeUrl = 'https://github.com/devaw-de/godstracker';
+  protected readonly faq = FAQ;
 
   readonly showMenu = signal<boolean>(false);
   readonly exportDisabled = computed<boolean>(() => !this.#locationsService.locations().some(
@@ -59,7 +73,7 @@ export class MenuComponent {
     for (const value of Object.values(StorageKey)) {
       this.#storageService.remove(value);
     }
-    window.location.reload();
+    this.#reloadApp();
   }
 
   protected unmarkLocations(): void {
@@ -91,12 +105,14 @@ export class MenuComponent {
         quests: this.#storageService.get(StorageKey.QUESTS),
         ships: this.#storageService.get(StorageKey.SHIP),
         items: this.#storageService.get(StorageKey.ITEMS),
+        crew: this.#storageService.get(StorageKey.CREW),
       });
       this.#downloadJsonStringAsFile(json);
 
       this.#dialog.open<void>(TextModalComponent, {
         data: {
           heading: 'Saved',
+          icon: faCheckCircle,
           texts: [
             'Your status was saved as godsTracker.json to your download folder.',
             'You can import this file to resume the game.'
@@ -104,13 +120,42 @@ export class MenuComponent {
         }
       });
     } catch {
-      this.#dialog.open<void>(TextModalComponent, {
-        data: {
-          heading: 'Error',
-          texts: ['Something did not work out right. Please try again.']
-        }
-      });
+      this.#showError();
     }
+  }
+
+  protected import(): void {
+    const dialog = this.#dialog.open<void>(FileSelectionModalComponent, {});
+    dialog.closed.pipe(take(1)).subscribe((file) => {
+      if (!file) {
+        return;
+      }
+
+      try {
+        this.#readFileContents(file);
+      } catch {
+        this.#showError();
+      }
+    });
+  }
+
+  #readFileContents(file: File): void {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const json = this.#parseFileContents(reader.result as string);
+
+      if (this.#isValid(json)) {
+        this.#store(json);
+        this.#reloadApp();
+      } else {
+        this.#showError('Please select a file you previously exported from this app.');
+      }
+    }
+    reader.readAsText(file);
+  }
+
+  #parseFileContents(file: string): Dto {
+    return JSON.parse(file);
   }
 
   #downloadJsonStringAsFile(json: string): void {
@@ -119,5 +164,44 @@ export class MenuComponent {
     link.download = 'godsTracker.json';
     link.click();
     link.remove();
+  }
+
+  #isValid(json: Dto): boolean {
+    return json?.locations?.length > 0;
+  }
+
+  #showError(message?: string): void {
+    this.#dialog.open<void>(TextModalComponent, {
+      data: {
+        heading: 'Error',
+        icon: faExclamationTriangle,
+        texts: [
+          'Something did not work out right. Please try again.',
+          message,
+        ].filter(Boolean),
+      }
+    });
+  }
+
+  #store(json: Dto): void {
+    if (json.locations) {
+      this.#storageService.set(StorageKey.LOCATIONS, json.locations);
+    }
+    if (json.quests) {
+      this.#storageService.set(StorageKey.QUESTS, json.quests);
+    }
+    if (json.items) {
+      this.#storageService.set(StorageKey.ITEMS, json.items);
+    }
+    if (json.ships) {
+      this.#storageService.set(StorageKey.SHIP, json.ships);
+    }
+    if (json.crew) {
+      this.#storageService.set(StorageKey.CREW, json.crew);
+    }
+  }
+
+  #reloadApp(): void {
+    window.location.reload();
   }
 }

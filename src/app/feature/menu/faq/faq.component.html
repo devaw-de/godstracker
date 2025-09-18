@@ -1,0 +1,11 @@
+<h2>
+  <del>Frequently</del>
+  <ins>Potentially</ins>
+  asked questions
+</h2>
+@for (q of faq(); track $index) {
+  <details>
+    <summary>{{ q.title }}</summary>
+    <p>{{ q.answer }}</p>
+  </details>
+}

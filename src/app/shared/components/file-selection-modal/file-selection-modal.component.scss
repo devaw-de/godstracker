@@ -1,0 +1,22 @@
+@use 'button';
+
+main {
+  padding: 1rem 0;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: .5rem;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button {
+    @include button.primary;
+
+    &.cancel {
+      @include button.outline;
+    }
+  }
+}

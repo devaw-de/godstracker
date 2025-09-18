@@ -1,4 +1,7 @@
 <header>
+  @if (data.icon) {
+    <fa-icon [icon]="data.icon" />
+  }
   {{ data.heading }}
 </header>
 <main>

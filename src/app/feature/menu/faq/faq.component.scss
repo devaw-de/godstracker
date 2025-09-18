@@ -1,0 +1,5 @@
+@use 'details';
+
+details {
+  @include details.second-level;
+}

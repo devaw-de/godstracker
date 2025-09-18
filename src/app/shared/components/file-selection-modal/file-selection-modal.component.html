@@ -1,0 +1,36 @@
+<header>
+  <h1>Select a file to import</h1>
+</header>
+
+<main>
+  <p>
+    <strong>This will override any changes you made.</strong>
+  </p>
+  <form [formGroup]="form">
+    <label for="file">Pick a file</label>
+    <input #filePicker
+           type="file"
+           id="file"
+           name="file"
+           accept="application/json"
+           [formControl]="form.controls.file"
+    />
+  </form>
+</main>
+
+<footer>
+  <button class="cancel"
+          (click)="close()"
+          (keydown.enter)="close()"
+          (keydown.space)="close()"
+  >
+    Cancel
+  </button>
+  <button [disabled]="!form.controls.file.value"
+          (click)="import()"
+          (keydown.enter)="import()"
+          (keydown.space)="import()"
+  >
+    Import
+  </button>
+</footer>
