@@ -141,17 +141,19 @@ export class MenuComponent {
 
   #readFileContents(file: File): void {
     const reader = new FileReader();
-    reader.onload = () => {
-      const json = this.#parseFileContents(reader.result as string);
-
-      if (this.#isValid(json)) {
-        this.#store(json);
-        this.#reloadApp();
-      } else {
-        this.#showError('Please select a file you previously exported from this app.');
-      }
-    }
+    reader.onload = this.#fileReaderOnloadHandler.bind(this);
     reader.readAsText(file);
+  }
+
+  #fileReaderOnloadHandler(ev: ProgressEvent<FileReader>): void {
+    const json = this.#parseFileContents(ev.target?.result as string);
+
+    if (this.#isValid(json)) {
+      this.#store(json);
+      this.#reloadApp();
+    } else {
+      this.#showError('Please select a file you previously exported from this app.');
+    }
   }
 
   #parseFileContents(file: string): Dto {
