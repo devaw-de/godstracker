@@ -9,3 +9,6 @@ To start a local development server, run:
 ```
 npm install && ng serve
 ```
+
+## Live Version
+https://devaw-de.github.io/godstracker-live/
