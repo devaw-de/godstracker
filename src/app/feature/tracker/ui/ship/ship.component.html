@@ -1,24 +1,15 @@
 <p>
-  <label for="ship-location">Ship Location</label>
-  <input #shipLocation
-         type="number"
-         id="ship-location"
-         inputmode="numeric"
-         [value]="location()"
-         (change)="updateLocation(shipLocation.valueAsNumber)"
-  >
+  <app-ship-location [location]="location()"
+                     (locationChange)="locationChange.emit($event)"
+  />
 </p>
 <p>
-  <label for="ship-room">Last used Room</label>
-  <select #roomSelection
-          (change)="updateRoom(roomSelection.value)"
-  >
-    @for (option of locationOptions; track $index) {
-      <option [value]="option"
-              [selected]="option === room()"
-      >
-        {{ option | titlecase }}
-      </option>
-    }
-  </select>
+  <app-ship-room [room]="room()"
+                 (roomChange)="roomChange.emit($event)"
+  />
+</p>
+<p>
+  <app-ship-damage [damage]="damage()"
+                   (damageChange)="damageChange.emit($event)"
+  />
 </p>

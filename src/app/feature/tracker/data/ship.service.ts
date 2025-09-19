@@ -9,16 +9,32 @@ import { SgStorage } from '../../../shared/model/sg-storage';
 export class ShipService implements SgStorage {
   readonly #storageService = inject(StorageService);
   readonly #gameStartingPosition = 2;
+  readonly #initialDamage = {
+    [ShipRoom.NONE]: 0,
+    [ShipRoom.DECK]: 0,
+    [ShipRoom.BRIDGE]: 0,
+    [ShipRoom.SICK_BAY]: 0,
+    [ShipRoom.QUARTERS]: 0,
+    [ShipRoom.GALLEY]: 0
+  };
 
   readonly #ship = signal<Ship>({
     location: this.#gameStartingPosition,
-    room: ShipRoom.NONE
+    room: ShipRoom.NONE,
+    damage: this.#initialDamage,
   });
   readonly lastShipRoom = computed<ShipRoom>(() => this.#ship().room);
   readonly lastLocation = computed<number>(() => this.#ship().location);
+  readonly shipDamage = computed<Record<ShipRoom, number>>(() => this.#ship().damage);
   readonly hasChanges = computed<boolean>(() =>
     this.lastLocation() !== this.#gameStartingPosition
     || this.lastShipRoom() !== ShipRoom.NONE
+    || this.shipDamage().DECK > 0
+    || this.shipDamage().BRIDGE > 0
+    || this.shipDamage().GALLEY > 0
+    || this.shipDamage().SICK_BAY > 0
+    || this.shipDamage().QUARTERS > 0
+    || this.shipDamage().NONE > 0
   );
 
   constructor() {
@@ -32,16 +48,26 @@ export class ShipService implements SgStorage {
     }
   }
 
+  updateShipDamage(room: ShipRoom, value: number): void {
+    this.#update({
+      ...this.#ship(),
+      damage: {
+        ...this.#ship().damage,
+        [ShipRoom[room]]: value
+      }
+    });
+  }
+
   updateLastShipRoom(shipRoom: ShipRoom): void {
     this.#update({
-      room: shipRoom,
-      location: this.#ship().location
+      ...this.#ship(),
+      room: shipRoom
     });
   }
 
   updateLastLocation(location: number): void {
     this.#update({
-      room: this.#ship().room,
+      ...this.#ship(),
       location: location
     });
   }

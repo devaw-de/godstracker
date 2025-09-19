@@ -54,7 +54,8 @@ export class TrackerComponent {
   readonly items = this.#itemsService.items.asReadonly();
   readonly ship = {
     location: this.#shipService.lastLocation,
-    room: this.#shipService.lastShipRoom
+    room: this.#shipService.lastShipRoom,
+    damage: this.#shipService.shipDamage
   };
 
   protected updateSelection(ev: number): void {
@@ -116,6 +117,10 @@ export class TrackerComponent {
 
   protected updateShipRoom(room: ShipRoom): void {
     this.#shipService.updateLastShipRoom(room);
+  }
+
+  protected updateShipDamage(event: { room: ShipRoom, value: number }): void {
+    this.#shipService.updateShipDamage(event.room, event.value);
   }
 
   #deleteQuest(id: number): void {

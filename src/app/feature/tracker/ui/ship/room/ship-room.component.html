@@ -1,0 +1,12 @@
+<label for="ship-room">Last used Room</label>
+<select #roomSelection
+        (change)="updateRoom(roomSelection.value)"
+>
+  @for (option of locationOptions; track $index) {
+    <option [value]="option"
+            [selected]="option === room()"
+    >
+      {{ option | titlecase }}
+    </option>
+  }
+</select>

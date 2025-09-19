@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { GAME_URL, GITHUB_URL } from '../../../shared/model/sg-constants';
 
 @Component({
   selector: 'app-explanation',
@@ -7,6 +8,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExplanationComponent {
-  readonly codeUrl = input.required<string>();
-  readonly gameUrl = input.required<string>();
+  protected readonly githubUrl = GITHUB_URL;
+  protected readonly gameUrl = GAME_URL;
 }

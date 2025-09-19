@@ -1,0 +1,14 @@
+@use 'list';
+@use 'button';
+
+ul {
+  @include list.default;
+
+  .label {
+    width: 100px;
+  }
+
+  button {
+    @include button.primary;
+  }
+}

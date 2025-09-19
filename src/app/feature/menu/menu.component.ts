@@ -44,8 +44,6 @@ export class MenuComponent {
   readonly #crewService = inject(CrewService);
   readonly #dialog = inject(Dialog);
 
-  protected readonly gameUrl = 'https://www.redravengames.com/sleeping-gods/';
-  protected readonly codeUrl = 'https://github.com/devaw-de/godstracker';
   protected readonly faq = FAQ;
 
   readonly showMenu = signal<boolean>(false);

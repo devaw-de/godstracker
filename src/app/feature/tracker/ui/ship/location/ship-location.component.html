@@ -1,0 +1,8 @@
+<label for="ship-location">Ship Location</label>
+<input #shipLocation
+       type="number"
+       id="ship-location"
+       inputmode="numeric"
+       [value]="location()"
+       (change)="updateLocation(shipLocation.valueAsNumber)"
+>

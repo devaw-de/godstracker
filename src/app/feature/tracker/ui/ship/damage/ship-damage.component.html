@@ -1,0 +1,45 @@
+<div class="label">Ship Damage</div>
+<ul>
+  @for (shipRoom of shipRoomsWithoutNone; track $index) {
+    <ng-container *ngTemplateOutlet="listItem; context: {
+      max: 2,
+      room: shipRoom,
+      roomName: shipRoom | titlecase,
+      damage: damage()[shipRoom]
+      }"
+    />
+  }
+  <ng-container *ngTemplateOutlet="listItem; context: {
+    max: 1,
+    room: ShipRoom.NONE,
+    roomName: 'Hull',
+    damage: damage()[ShipRoom.NONE]
+    }"
+  />
+</ul>
+
+<ng-template #listItem
+             let-room='room'
+             let-roomName='roomName'
+             let-max='max'
+             let-damage='damage'
+>
+  <li>
+    <span class="label">{{ roomName }}</span>
+    <button [disabled]="damage <= 0"
+            (click)="increaseDamage(room, -1)"
+            (keydown.enter)="increaseDamage(room, -1)"
+            (keydown.space)="increaseDamage(room, -1)"
+    >
+      -
+    </button>
+     {{ damage }}
+    <button [disabled]="damage >= max"
+            (click)="increaseDamage(room, 1)"
+            (keydown.enter)="increaseDamage(room, 1)"
+            (keydown.space)="increaseDamage(room, 1)"
+    >
+      +
+    </button>
+  </li>
+</ng-template>

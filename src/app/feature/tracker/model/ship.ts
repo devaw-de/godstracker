@@ -10,4 +10,5 @@ export enum ShipRoom {
 export interface Ship {
   location: number;
   room: ShipRoom;
+  damage: Record<ShipRoom, number>;
 }

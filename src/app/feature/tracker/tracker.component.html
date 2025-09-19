@@ -15,7 +15,7 @@
   </button>
 </details>
 
-<details [open]="true">
+<details>
   <summary>Pages</summary>
   <app-page-selection [pages]="pages"
                       [selectedPage]="selectedPage()"
@@ -34,8 +34,10 @@
   <summary>Ship</summary>
   <app-ship [room]="ship.room()"
             [location]="ship.location()"
+            [damage]="ship.damage()"
             (locationChange)="updateShipLocation($event)"
             (roomChange)="updateShipRoom($event)"
+            (damageChange)="updateShipDamage($event)"
   />
 </details>
 
@@ -46,7 +48,7 @@
   />
 </details>
 
-<details open>
+<details>
   <summary>Players & Crew</summary>
   <app-players [players]="players()"
                (playerChange)="updatePlayers($event)"
