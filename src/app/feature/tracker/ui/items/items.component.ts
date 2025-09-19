@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, input, output } from "@angular/core";
-import { TitleCasePipe } from '@angular/common';
 import {
   faAnkh,
   faBacon,
@@ -12,13 +11,14 @@ import {
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { AppItems } from '../../model';
 import { NumberUtils } from '../../../../shared/utilities/number.utils';
+import { EnumToStringPipe } from '../../../../shared/pipes/enum-to-string.pipe';
 
 @Component({
   selector: 'app-items',
   templateUrl: './items.component.html',
   styleUrl: './items.component.scss',
   imports: [
-    TitleCasePipe,
+    EnumToStringPipe,
     FaIconComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush

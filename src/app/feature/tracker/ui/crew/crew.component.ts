@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
-import { TitleCasePipe } from '@angular/common';
 import { Dialog } from '@angular/cdk/dialog';
 import { TextInputModalComponent } from '../../../../shared/components';
 import { Crew, CrewNames } from '../../model';
@@ -8,18 +7,19 @@ import { CrewCommentComponent } from './crew-comment/crew-comment.component';
 import { CrewItems } from './crew-items/crew-items.component';
 import { CrewCommandTokensComponent } from './crew-command-tokens/crew-command-tokens.component';
 import { CrewPlayerSelectionComponent } from './crew-player-selection/crew-player-selection.component';
+import { EnumToStringPipe } from '../../../../shared/pipes/enum-to-string.pipe';
 
 @Component({
   selector: 'app-crew',
   templateUrl: './crew.component.html',
   styleUrl: './crew.component.scss',
   imports: [
-    TitleCasePipe,
     CrewInjuriesComponent,
     CrewCommentComponent,
     CrewItems,
     CrewCommandTokensComponent,
-    CrewPlayerSelectionComponent
+    CrewPlayerSelectionComponent,
+    EnumToStringPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

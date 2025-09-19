@@ -4,7 +4,7 @@
     <ng-container *ngTemplateOutlet="listItem; context: {
       max: 2,
       room: shipRoom,
-      roomName: shipRoom | titlecase,
+      roomName: shipRoom | enumToString,
       damage: damage()[shipRoom]
       }"
     />

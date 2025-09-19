@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { TitleCasePipe } from '@angular/common';
 import { ShipRoom } from '../../../model';
+import { EnumToStringPipe } from '../../../../../shared/pipes/enum-to-string.pipe';
 
 @Component({
   selector: 'app-ship-room',
   templateUrl: './ship-room.component.html',
   styleUrl: './ship-room.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TitleCasePipe]
+  imports: [EnumToStringPipe]
 })
 export class ShipRoomComponent {
   protected readonly locationOptions = Object.values(ShipRoom);

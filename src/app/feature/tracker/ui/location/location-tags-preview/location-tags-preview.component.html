@@ -1,6 +1,6 @@
 <div>
   @for (tag of tags(); track $index) {
-    <span [title]="tag | titlecase">
+    <span [title]="tag | enumToString">
           {{ tag | tagIcon }}
         </span>
   }

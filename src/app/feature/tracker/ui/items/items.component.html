@@ -2,7 +2,7 @@
   <div class="{{ item }}">
     <div class="label">
       <fa-icon [icon]="icons[item]"/>
-      {{ item | titlecase }}
+      {{ item | enumToString }}
     </div>
     <p>
       <button [disabled]="items()[item] < 1"

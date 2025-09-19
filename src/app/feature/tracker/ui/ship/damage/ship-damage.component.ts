@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { ShipRoom } from '../../../model';
-import { NgTemplateOutlet, TitleCasePipe } from '@angular/common';
+import { EnumToStringPipe } from '../../../../../shared/pipes/enum-to-string.pipe';
 
 @Component({
   selector: 'app-ship-damage',
   templateUrl: './ship-damage.component.html',
   styleUrls: ['./ship-damage.component.scss'],
   imports: [
-    TitleCasePipe,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    EnumToStringPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

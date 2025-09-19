@@ -1,6 +1,6 @@
 @for (mate of crew(); track $index) {
   <details>
-    <summary>{{ mate.name | titlecase }}</summary>
+    <summary>{{ mate.name | enumToString }}</summary>
     @if (players().length > 1 && mate.name !== CrewNames.CAPTAIN) {
       <app-crew-player-selection [players]="players()"
                                  [selectedPlayer]="mate.playerIndex"

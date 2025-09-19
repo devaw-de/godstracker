@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { TitleCasePipe } from '@angular/common';
 import { AppLocation } from '../../../model';
 import { LocationTagIconPipe } from '../location-tags/icon-tag.pipe';
+import { EnumToStringPipe } from '../../../../../shared/pipes/enum-to-string.pipe';
 
 @Component({
   selector: 'app-location-tags-preview',
@@ -9,7 +9,7 @@ import { LocationTagIconPipe } from '../location-tags/icon-tag.pipe';
   styleUrls: ['./location-tags-preview.component.scss'],
   imports: [
     LocationTagIconPipe,
-    TitleCasePipe
+    EnumToStringPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
