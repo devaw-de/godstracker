@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Dialog } from '@angular/cdk/dialog';
 import { TextModalComponent } from '../../shared/components';
-import { LocationsService, QuestsService, StorageService } from '../tracker/data';
+import { CrewService, ItemsService, LocationsService, QuestsService, StorageService } from '../tracker/data';
 import { AppItems, AppLocation, AppQuest, Crew, ShipRoom, StorageKey } from '../tracker/model';
 import {
   FileSelectionModalComponent
@@ -11,6 +11,7 @@ import { FAQ } from './faq/faq';
 import { faCheckCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FaqComponent } from './faq/faq.component';
 import { ExplanationComponent } from './explanation/explanation.component';
+import { ShipService } from '../tracker/data/ship.service';
 
 interface Dto {
   items: AppItems;
@@ -38,6 +39,9 @@ export class MenuComponent {
   readonly #locationsService = inject(LocationsService);
   readonly #questsService = inject(QuestsService);
   readonly #storageService = inject(StorageService);
+  readonly #itemsService = inject(ItemsService);
+  readonly #shipService = inject(ShipService);
+  readonly #crewService = inject(CrewService);
   readonly #dialog = inject(Dialog);
 
   protected readonly gameUrl = 'https://www.redravengames.com/sleeping-gods/';
@@ -45,10 +49,12 @@ export class MenuComponent {
   protected readonly faq = FAQ;
 
   readonly showMenu = signal<boolean>(false);
-  readonly exportDisabled = computed<boolean>(() => !this.#locationsService.locations().some(
-        (location) => location.requires.length || location.comments?.length || location.rewards.length
-      )
-      && !this.#questsService.quests().length
+  readonly exportDisabled = computed<boolean>(() =>
+    !this.#locationsService.hasChanges()
+    && !this.#questsService.quests().length
+    && !this.#itemsService.hasItems()
+    && !this.#shipService.hasChanges()
+    && !this.#crewService.hasChanges()
   );
 
   protected open(): void {

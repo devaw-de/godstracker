@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { StorageService } from '../../../shared/services/storage.service';
 import { AppItems, StorageKey } from '../model';
 import { SgStorage } from '../../../shared/model/sg-storage';
@@ -19,6 +19,15 @@ export class ItemsService implements SgStorage {
     meat: 0,
     materials: 0
   });
+  readonly hasItems = computed(() =>
+    this.items().xp
+    || this.items().coins
+    || this.items().artefacts
+    || this.items().grain
+    || this.items().vegetables
+    || this.items().meat
+    || this.items().materials
+  );
 
   constructor() {
     this.initFromStorage();

@@ -15,6 +15,9 @@ export class LocationsService implements SgStorage {
   readonly locations = computed(() => this.#locations().sort((a, b) =>
      a.id - b.id
   ));
+  readonly hasChanges = computed<boolean>(() => this.locations().some(
+    (loc) => loc.requires.length || loc.comments?.length || loc.rewards.length
+  ));
 
   constructor() {
     this.initFromStorage();

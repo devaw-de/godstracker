@@ -16,6 +16,10 @@ export class ShipService implements SgStorage {
   });
   readonly lastShipRoom = computed<ShipRoom>(() => this.#ship().room);
   readonly lastLocation = computed<number>(() => this.#ship().location);
+  readonly hasChanges = computed<boolean>(() =>
+    this.lastLocation() !== this.#gameStartingPosition
+    || this.lastShipRoom() !== ShipRoom.NONE
+  );
 
   constructor() {
     this.initFromStorage();

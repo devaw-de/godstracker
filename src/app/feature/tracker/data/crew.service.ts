@@ -22,8 +22,18 @@ export class CrewService implements SgStorage {
       comment: ''
     }));
 
-  #crew = signal<Crew[]>(this.#initialCrew);
-  crew = computed<Crew[]>(() => this.#crew().sort((a, b) => a.name.localeCompare(b.name)));
+  readonly #crew = signal<Crew[]>(this.#initialCrew);
+  readonly crew = computed<Crew[]>(() => this.#crew().sort((a, b) => a.name.localeCompare(b.name)));
+  readonly hasChanges = computed<boolean>(() =>
+    this.crew().some((mate) =>
+      mate.comment.length
+      || mate.injuries
+      || mate.equipment.length
+      || mate.abilityCards.length
+      || mate.xpCards.length
+      || mate.commandTokens.some(token => token > 0)
+    )
+  );
 
   constructor() {
     this.initFromStorage();
