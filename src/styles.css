@@ -27,20 +27,25 @@
   --border-radius-box: 8px;
   --padding-box: 8px;
 }
-
-body {
+html, body {
   padding: 0;
   margin: 0;
+}
+
+body {
   font-family: sans-serif;
   height: 100%;
   min-height: 100vh;
+  max-width: calc(100vw - .375rem);
   background-color: var(--primary-800);
   color: var(--primary-000);
   font-size: 14px;
+  scrollbar-gutter: stable both-edges;
 }
 
 app-root {
-  max-width: 960px;
+  display: block;
+  max-width: min(100%, 960px);
   margin: 0 auto;
 }
 
