@@ -38,5 +38,13 @@ export const FAQ = [
     answers: [
       'Feel free to open a ticket on github.'
     ]
+  },
+  {
+    title: 'Are there any spoilers?',
+    answers: [
+      'Not really.',
+      'When searching for a quest card, you will see the names of other quest cards.',
+      'Anything else you might see are things that are available at the start of the game.'
+    ]
   }
 ];
