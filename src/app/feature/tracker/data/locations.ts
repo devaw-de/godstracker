@@ -13,7 +13,7 @@ export const PAGES = [
   { pageNumber: 11, locationIds: [97, 49, 204, 190, 188, 177, 215, 196, 144] },
   { pageNumber: 12, locationIds: [70, 41, 103, 115, 12, 76, 87, 68, 92] },
   { pageNumber: 13, locationIds: [65, 6, 121, 59, 40, 22, 29, 102] },
-  { pageNumber: 14, locationIds: [180, 114, 69, 42, 77, 107, 132, 78, 60, 42, 60, 58] },
+  { pageNumber: 14, locationIds: [180, 114, 69, 42, 77, 107, 132, 78, 42, 60, 58] },
   { pageNumber: 15, locationIds: [122, 23, 14, 86, 129, 13] },
   { pageNumber: 16, locationIds: [137, 24, 113, 128, 106, 83, 158, 146] },
   { pageNumber: 17, locationIds: [155, 149, 127, 165, 120, 201, 84, 64] },
