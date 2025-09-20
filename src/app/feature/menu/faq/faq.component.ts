@@ -7,5 +7,5 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FaqComponent {
-  readonly faq = input.required<{title: string; answer: string}[]>();
+  readonly faq = input.required<{title: string; answers: string[]}[]>();
 }

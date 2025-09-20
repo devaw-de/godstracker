@@ -6,6 +6,8 @@
 @for (q of faq(); track $index) {
   <details>
     <summary>{{ q.title }}</summary>
-    <p>{{ q.answer }}</p>
+    @for (answer of q.answers; track $index) {
+      <p>{{ answer }}</p>
+    }
   </details>
 }
