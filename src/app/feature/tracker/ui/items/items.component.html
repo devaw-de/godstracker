@@ -1,7 +1,8 @@
+<div>
 @for (item of itemTypes; track $index) {
   <div class="{{ item }}">
     <div class="label">
-      <fa-icon [icon]="icons[item]"/>
+      <fa-icon [icon]="icons[item]" />
       {{ item | enumToString }}
     </div>
     <p>
@@ -20,12 +21,17 @@
       >
         +
       </button>
-      <button (click)="reset(item)"
-              (keydown.enter)="reset(item)"
-              (keydown.space)="reset(item)"
-      >
-        x
-      </button>
     </p>
   </div>
 }
+</div>
+<div>
+  <button class="secondary"
+          [disabled]="noItems()"
+          (click)="clearAll()"
+          (keydown.enter)="clearAll()"
+          (keydown.space)="clearAll()"
+  >
+    Clear all
+  </button>
+</div>

@@ -9,13 +9,23 @@
       }"
     />
   }
-  <ng-container *ngTemplateOutlet="listItem; context: {
-    max: 1,
-    room: ShipRoom.NONE,
-    roomName: 'Hull',
-    damage: damage()[ShipRoom.NONE]
-    }"
-  />
+  <div class="row">
+    <ng-container *ngTemplateOutlet="listItem; context: {
+      max: 1,
+      room: ShipRoom.NONE,
+      roomName: 'Hull',
+      damage: damage()[ShipRoom.NONE]
+      }"
+    />
+    <button class="secondary"
+            [disabled]="noDamage()"
+            (click)="repairAll.emit()"
+            (keydown.enter)="repairAll.emit()"
+            (keydown.space)="repairAll.emit()"
+    >
+      Repair all
+    </button>
+  </div>
 </ul>
 
 <ng-template #listItem

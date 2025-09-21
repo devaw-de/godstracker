@@ -7,8 +7,19 @@ ul {
   .label {
     width: 100px;
   }
+}
 
-  button {
+button {
+  &:not(.secondary) {
     @include button.primary;
   }
+
+  &.secondary {
+    @include button.ghost;
+  }
+}
+
+.row {
+  display: flex;
+  gap: 1rem;
 }

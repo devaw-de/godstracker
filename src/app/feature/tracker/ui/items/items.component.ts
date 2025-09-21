@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, computed, input, output } from "@angular/core";
 import {
   faAnkh,
   faBacon,
@@ -44,6 +44,7 @@ export class ItemsComponent {
     materials: faCubesStacked
   };
   readonly items = input.required<AppItems>();
+  readonly noItems = computed<boolean>(() => this.itemTypes.every(item => !this.items()[item]));
   readonly itemsChanged = output<AppItems>();
 
   protected increment(item: keyof AppItems, value: number): void {
@@ -56,10 +57,15 @@ export class ItemsComponent {
     });
   }
 
-  protected reset(item: keyof AppItems): void {
+  protected clearAll(): void {
     this.itemsChanged.emit({
-      ...this.items(),
-      [item]: 0
+      xp: 0,
+      grain: 0,
+      meat: 0,
+      vegetables: 0,
+      materials: 0,
+      coins: 0,
+      artefacts: 0,
     });
   }
 }

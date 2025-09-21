@@ -1,45 +1,52 @@
 @use 'button';
 
-div {
+:host {
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
-  width: 100%;
-  margin: 1rem;
+  align-items: end;
 
-  .label {
-    display: inline-block;
-    width: 110px;
-    margin: 0;
-
-    fa-icon {
-      margin-right: .5rem;
-      opacity: .7;
+  & > div {
+    &:last-child {
+      padding-bottom: .5rem;
     }
-  }
-  p {
-    margin: 0;
 
-    button {
-      @include button.primary;
-      font-size: small;
-      padding: 3px 8px;
+    div {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      width: 100%;
+      margin: 1rem;
 
-      &:last-of-type {
-        margin-left: 2rem;
-        background-color: var(--danger-500);
-        font-size: smaller;
+      .label {
+        display: inline-block;
+        width: 110px;
+        margin: 0;
 
-        &:hover {
-          background-color: var(--danger-000);
+        fa-icon {
+          margin-right: .5rem;
+          opacity: .7;
+        }
+      }
+
+      p {
+        margin: 0;
+
+        button {
+          @include button.primary;
+          font-size: small;
+          padding: 3px 8px;
+        }
+
+        span {
+          display: inline-block;
+          width: 2rem;
+          text-align: center;
         }
       }
     }
 
-    span {
-      display: inline-block;
-      width: 2rem;
-      text-align: center;
+    button {
+      @include button.ghost;
     }
   }
 }
