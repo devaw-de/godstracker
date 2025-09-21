@@ -72,6 +72,14 @@ export class ShipService implements SgStorage {
     });
   }
 
+  reset(): void {
+    this.#update({
+      location: this.#gameStartingPosition,
+      room: ShipRoom.NONE,
+      damage: this.#initialDamage
+    });
+  }
+
   #update(ship: Ship): void {
     this.#storageService.set(StorageKey.SHIP, ship);
     this.#ship.set(ship);

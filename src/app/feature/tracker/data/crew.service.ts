@@ -59,5 +59,6 @@ export class CrewService implements SgStorage {
 
   reset(): void {
     this.#crew.set(this.#initialCrew);
+    this.#storageService.set(StorageKey.CREW, this.#initialCrew);
   }
 }

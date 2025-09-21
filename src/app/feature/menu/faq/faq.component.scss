@@ -1,5 +1,10 @@
 @use 'details';
 
-details {
-  @include details.second-level;
+:host {
+  display: block;
+  width: 100%;
+
+  details {
+    @include details.second-level;
+  }
 }

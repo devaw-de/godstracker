@@ -83,4 +83,19 @@ cdk-dialog-container {
   background-color: var(--primary-800);
   padding: 1rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+
+  header {
+    padding-bottom: .5rem;
+  }
+
+  main {
+    flex-grow: 1;
+    padding-block: 1rem;
+    border-top: 1px solid var(--secondary-600);
+    border-bottom: 1px solid var(--secondary-600);
+  }
+
+  footer {
+    padding-top: .5rem;
+  }
 }

@@ -1,0 +1,58 @@
+<header>
+  <h1>Start a new game</h1>
+</header>
+
+<main>
+  <form [formGroup]="form">
+    <p class="warning">
+      <input type="checkbox"
+             id="terms"
+             [formControl]="form.controls.termsAccepted"
+      />
+      <label for="terms">
+        <fa-icon [icon]="icons.warning" />
+        I understand that all equipment, quests, and changes to crew or ship will be lost.
+        Only information about locations will remain.
+      </label>
+    </p>
+    <p>
+      <input type="checkbox"
+             id="easy"
+             [formControl]="form.controls.easyMode"
+      />
+      <label for="easy">
+        Start in easy mode
+      </label>
+    </p>
+    <p>
+      <input type="checkbox"
+             id="tutorial"
+             [formControl]="form.controls.noTutorial"
+      />
+      <label for="tutorial">
+        Skip tutorial encounter
+      </label>
+    </p>
+    <p class="preview">
+      <span>You will start with...</span>
+    </p>
+      <ul>
+      @for(item of iterableItems(); track $index) {
+        <li>{{ item[1] }} {{ item[0] }}</li>
+      } @empty {
+        <li>a clean slate</li>
+      }
+      </ul>
+
+  </form>
+</main>
+
+<footer>
+  <button [disabled]="!formValue()?.termsAccepted"
+          (click)="start()"
+          (keydown.enter)="start()"
+          (keydown.space)="start()"
+  >
+    Start game
+  </button>
+</footer>

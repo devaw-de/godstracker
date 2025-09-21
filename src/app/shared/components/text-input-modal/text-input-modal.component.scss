@@ -20,6 +20,7 @@
 
   main {
     width: 100%;
+    flex-grow: 1;
 
     label {
       @include form.label;

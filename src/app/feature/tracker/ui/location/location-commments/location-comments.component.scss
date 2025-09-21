@@ -5,6 +5,10 @@ h3 {
   @include heading.h3;
 }
 
+span {
+  cursor: pointer;
+}
+
 button {
   @include button.primary;
 

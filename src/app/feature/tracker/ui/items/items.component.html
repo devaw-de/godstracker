@@ -1,29 +1,29 @@
 <div>
-@for (item of itemTypes; track $index) {
-  <div class="{{ item }}">
-    <div class="label">
-      <fa-icon [icon]="icons[item]" />
-      {{ item | enumToString }}
+  @for (item of itemTypes; track $index) {
+    <div class="{{ item }}">
+      <div class="label">
+        <fa-icon [icon]="icons[item]"/>
+        {{ item | enumToString }}
+      </div>
+      <p>
+        <button [disabled]="items()[item] < 1"
+                (click)="increment(item, -1)"
+                (keydown.enter)="increment(item, -1)"
+                (keydown.space)="increment(item, -1)"
+        >
+          -
+        </button>
+        <span>{{ items()[item] }}</span>
+        <button [disabled]="items()[item] >= maxItemCount"
+                (click)="increment(item, 1)"
+                (keydown.enter)="increment(item, 1)"
+                (keydown.space)="increment(item, 1)"
+        >
+          +
+        </button>
+      </p>
     </div>
-    <p>
-      <button [disabled]="items()[item] < 1"
-              (click)="increment(item, -1)"
-              (keydown.enter)="increment(item, -1)"
-              (keydown.space)="increment(item, -1)"
-      >
-        -
-      </button>
-      <span>{{ items()[item] }}</span>
-      <button [disabled]="items()[item] >= maxItemCount"
-              (click)="increment(item, 1)"
-              (keydown.enter)="increment(item, 1)"
-              (keydown.space)="increment(item, 1)"
-      >
-        +
-      </button>
-    </p>
-  </div>
-}
+  }
 </div>
 <div>
   <button class="secondary"

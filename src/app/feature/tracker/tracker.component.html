@@ -1,4 +1,4 @@
-<details [open]="true">
+<details>
   <summary>Quests</summary>
   @for (quest of quests(); track quest.id) {
     <app-quest [quest]="quest"
@@ -6,6 +6,8 @@
                (keydown.enter)="showQuestDetails(quest.id)"
                (keydown.space)="showQuestDetails(quest.id)"
     />
+  } @empty {
+    <small>none yet</small>
   }
   <button (click)="addQuest()"
           (keydown.enter)="addQuest()"

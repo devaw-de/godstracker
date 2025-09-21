@@ -1,0 +1,25 @@
+@use 'button';
+@use 'list';
+
+button {
+  @include button.primary;
+}
+
+footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+input {
+  accent-color: var(--primary-600);
+}
+
+.warning {
+  fa-icon {
+    color: var(--danger-000);
+  }
+}
+
+ul {
+  @include list.default;
+}

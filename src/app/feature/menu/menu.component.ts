@@ -12,6 +12,7 @@ import { faCheckCircle, faExclamationTriangle } from '@fortawesome/free-solid-sv
 import { FaqComponent } from './faq/faq.component';
 import { ExplanationComponent } from './explanation/explanation.component';
 import { ShipService } from '../tracker/data/ship.service';
+import { NewGameModalComponent } from './new-game/new-game-modal.component';
 
 interface Dto {
   items: AppItems;
@@ -61,6 +62,22 @@ export class MenuComponent {
 
   protected close(): void {
     this.showMenu.set(false);
+  }
+
+  protected newGame(): void {
+    const dialog = this.#dialog.open<{ quests: AppQuest[], items: AppItems }>(NewGameModalComponent);
+    dialog.closed
+      .pipe(take(1))
+      .subscribe((result) => {
+        if (result) {
+          console.warn(result);
+          this.#itemsService.update(result.items);
+          this.#crewService.reset();
+          this.#shipService.reset();
+          this.#questsService.reset(result.quests);
+        }
+        this.showMenu.set(false);
+      });
   }
 
   protected clearStorage(): void {
@@ -137,6 +154,7 @@ export class MenuComponent {
 
       try {
         this.#readFileContents(file);
+        this.showMenu.set(false);
       } catch {
         this.#showError();
       }

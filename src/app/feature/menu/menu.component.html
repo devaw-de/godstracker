@@ -20,6 +20,18 @@
     <h1>Menu</h1>
     <h2>Sleeping Gods Tracker</h2>
 
+      <details>
+        <summary>New Game</summary>
+        <section>
+          <button (click)="newGame()"
+                  (keydown.enter)="newGame()"
+                  (keydown.space)="newGame()"
+          >
+            Start a new game
+          </button>
+        </section>
+      </details>
+
     <details>
       <summary>Import & Export</summary>
       <section>

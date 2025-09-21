@@ -44,4 +44,9 @@ export class QuestsService implements SgStorage {
     this.#quests.set(updatedQuests);
     this.#storageService.set(StorageKey.QUESTS, updatedQuests);
   }
+
+  reset(startingQuests: AppQuest[] = []): void {
+    this.#quests.set(startingQuests);
+    this.#storageService.set<AppQuest[]>(StorageKey.QUESTS, startingQuests);
+  }
 }

@@ -9,12 +9,13 @@
 </h3>
 @for (comment of comments(); track $index) {
   <span [tabindex]="0"
+        title="Edit"
         (click)="editComment.emit($index)"
         (keydown.enter)="editComment.emit($index)"
         (keydown.space)="editComment.emit($index)"
   >
           {{ comment }}
-        </span>
+  </span>
   <button class="delete"
           (click)="deleteComment.emit($index)"
           (keydown.enter)="deleteComment.emit($index)"
