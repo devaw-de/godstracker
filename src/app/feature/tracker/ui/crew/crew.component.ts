@@ -8,6 +8,9 @@ import { CrewItems } from './crew-items/crew-items.component';
 import { CrewCommandTokensComponent } from './crew-command-tokens/crew-command-tokens.component';
 import { CrewPlayerSelectionComponent } from './crew-player-selection/crew-player-selection.component';
 import { EnumToStringPipe } from '../../../../shared/pipes/enum-to-string.pipe';
+import { CrewFatigueComponent } from './crew-fatigue/crew-fatigue.component';
+import { CrewHealthIndicatorComponent } from './crew-health-indicator/crew-health-indicator.component';
+import { CrewFatigueIndicatorComponent } from './crew-fatigue-indicator/crew-fatigue-indicator.component';
 
 @Component({
   selector: 'app-crew',
@@ -19,7 +22,10 @@ import { EnumToStringPipe } from '../../../../shared/pipes/enum-to-string.pipe';
     CrewItems,
     CrewCommandTokensComponent,
     CrewPlayerSelectionComponent,
-    EnumToStringPipe
+    EnumToStringPipe,
+    CrewFatigueComponent,
+    CrewHealthIndicatorComponent,
+    CrewFatigueIndicatorComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -47,6 +53,16 @@ export class CrewComponent {
       {
         ...crewMate,
         playerIndex: Number.parseInt(ownerIndex)
+      }
+    ]);
+  }
+
+  protected incrementFatigue(mate: Crew, value: number): void {
+    this.crewChange.emit([
+      ...this.crew().filter((crew) => mate.name !== crew.name),
+      {
+        ...mate,
+        fatigue: (mate.fatigue ?? 0) + value
       }
     ]);
   }

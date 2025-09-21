@@ -49,7 +49,7 @@
   &[open] {
     summary {
       &:after {
-        content: 'x';
+        content: '-';
         position: absolute;
         right: var(--padding-box);
       }

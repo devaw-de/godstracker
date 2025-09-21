@@ -1,12 +1,23 @@
 @for (mate of crew(); track $index) {
   <details>
-    <summary>{{ mate.name | enumToString }}</summary>
+    <summary>
+      <span>{{ mate.name | enumToString }}</span>
+      <app-crew-fatigue-indicator [fatigue]="mate.fatigue" />
+      <app-crew-health-indicator [health]="mate.maxHealth - mate.injuries"
+                                 [maxHealth]="mate.maxHealth"
+      />
+    </summary>
     @if (players().length > 1 && mate.name !== CrewNames.CAPTAIN) {
       <app-crew-player-selection [players]="players()"
                                  [selectedPlayer]="mate.playerIndex"
                                  (playerChange)="updateControllingPlayer(mate, $event)"
       />
     }
+    <app-crew-fatigue [fatigue]="mate.fatigue || 0"
+                      [maxFatigue]="mate.name === CrewNames.CAPTAIN ? 3 : 2"
+                      (increment)="incrementFatigue(mate, 1)"
+                      (decrement)="incrementFatigue(mate, -1)"
+    />
     <app-crew-command-tokens [commandTokens]="mate.commandTokens"
                              (increment)="incrementCommandToken(mate, $event, 1)"
                              (decrement)="incrementCommandToken(mate, $event, -1)"

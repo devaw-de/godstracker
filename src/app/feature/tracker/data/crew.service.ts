@@ -13,6 +13,7 @@ export class CrewService implements SgStorage {
     .map((name) => ({
       name: name,
       playerIndex: name === CrewNames.CAPTAIN ? -1 : 0,
+      fatigue: 0,
       commandTokens: name === CrewNames.CAPTAIN ? [0, 0, 0] : [0, 0],
       equipment: [],
       xpCards: [],
@@ -32,6 +33,7 @@ export class CrewService implements SgStorage {
       || mate.abilityCards.length
       || mate.xpCards.length
       || mate.commandTokens.some(token => token > 0)
+      || mate.fatigue
     )
   );
 
@@ -53,5 +55,9 @@ export class CrewService implements SgStorage {
       return;
     }
     throw new Error(`Invalid crew size ${crew.length}`);
+  }
+
+  reset(): void {
+    this.#crew.set(this.#initialCrew);
   }
 }

@@ -50,8 +50,13 @@
   border-color: transparent;
   color: var(--primary-000);
 
-  &:hover,
-  &:active {
-    color: var(--primary-400);
+  &:not([disabled]) {
+    &:hover,
+    &:active {
+      color: var(--primary-400);
+    }
+  }
+  &[disabled] {
+    color: var(--disabled-000);
   }
 }

@@ -1,0 +1,11 @@
+@use 'button';
+
+button {
+  @include button.primary;
+}
+
+span {
+  display: inline-block;
+  text-align: center;
+  width: 3ch;
+}

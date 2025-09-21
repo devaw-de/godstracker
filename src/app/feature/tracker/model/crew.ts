@@ -25,6 +25,7 @@ export const crewHealth: Record<CrewNames, number> = {
 export interface Crew {
   name: CrewNames;
   playerIndex: number;
+  fatigue: number;
   commandTokens: number[];
   equipment: string[];
   xpCards: string[];
