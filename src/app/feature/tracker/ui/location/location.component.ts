@@ -31,6 +31,7 @@ export class LocationComponent {
   readonly #dialog = inject(Dialog);
   readonly availableLocationTags = Object.values(AppLocationTag);
 
+  readonly identifier = input.required<string>();
   readonly questCards = input.required<AppQuest[]>();
   readonly location = input.required<AppLocation>();
   readonly availableQuests = input.required<AppQuest[]>();

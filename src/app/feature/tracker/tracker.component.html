@@ -1,30 +1,20 @@
 <details>
   <summary>Quests</summary>
-  @for (quest of quests(); track quest.id) {
-    <app-quest [quest]="quest"
-               (click)="showQuestDetails(quest.id)"
-               (keydown.enter)="showQuestDetails(quest.id)"
-               (keydown.space)="showQuestDetails(quest.id)"
-    />
-  } @empty {
-    <small>none yet</small>
-  }
-  <button (click)="addQuest()"
-          (keydown.enter)="addQuest()"
-          (keydown.space)="addQuest()"
-  >
-    +
-  </button>
+  <app-quests [quests]="quests()"
+              (showDetails)="showQuestDetails($event)"
+              (addQuest)="addQuest()"
+  />
 </details>
 
-<details>
+<details id="pages">
   <summary>Pages</summary>
   <app-page-selection [pages]="pages"
                       [selectedPage]="selectedPage()"
                        (selectionChange)="updateSelection($event)"
   />
   @for (location of filteredLocations(); track location.id) {
-    <app-location [questCards]="questCards"
+    <app-location [identifier]="locationIdPrefix + '-' + location.id"
+                  [questCards]="questCards"
                   [location]="location"
                   [availableQuests]="quests()"
                   (locationChange$)="updateLocation($event)"

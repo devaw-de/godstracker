@@ -1,0 +1,15 @@
+@for (quest of quests(); track quest.id) {
+  <app-quest [quest]="quest"
+             (click)="showDetails.emit(quest.id)"
+             (keydown.enter)="showDetails.emit(quest.id)"
+             (keydown.space)="showDetails.emit(quest.id)"
+  />
+} @empty {
+  <small>none yet</small>
+}
+<button (click)="addQuest.emit()"
+        (keydown.enter)="addQuest.emit()"
+        (keydown.space)="addQuest.emit()"
+>
+  +
+</button>

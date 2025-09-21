@@ -8,10 +8,7 @@
     <p>Required in:</p>
     <p class="badges">
       @for (location of matchingLocations(); track $index) {
-
-        <app-badge [mainText]="location.id.toString()"
-                   [subText]="'p' + location.page.toString()"
-        />
+        <ng-container *ngTemplateOutlet="badge; context: {$implicit: location}" />
       } @empty {
         <small>no matches</small>
       }
@@ -19,9 +16,7 @@
     <p>Rewarded in</p>
     <p class="badges">
       @for (location of rewardLocations(); track location.id) {
-        <app-badge [mainText]="location.id.toString()"
-                   [subText]="'p' + location.page.toString()"
-        />
+        <ng-container *ngTemplateOutlet="badge; context: {$implicit: location}" />
       } @empty {
         <small>unknown</small>
       }
@@ -44,3 +39,15 @@
     </button>
   </footer>
 }
+
+<ng-template #badge
+             let-location
+>
+  <app-badge tabindex="0"
+             [mainText]="location.id.toString()"
+             [subText]="'p' + location.page.toString()"
+             (click)="openLocation(location.id)"
+             (keydown.enter)="openLocation(location.id)"
+             (keydown.space)="openLocation(location.id)"
+  />
+</ng-template>

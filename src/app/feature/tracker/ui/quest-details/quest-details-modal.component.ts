@@ -2,14 +2,13 @@ import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } 
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { AppLocation, AppQuest } from '../../model';
 import { BadgeComponent } from '../../../../shared/components';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-quest-details-modal',
   templateUrl: './quest-details-modal.component.html',
   styleUrl: './quest-details-modal.component.scss',
-  imports: [
-    BadgeComponent
-  ],
+  imports: [BadgeComponent, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuestDetailsModalComponent implements OnInit {
@@ -39,4 +38,7 @@ export class QuestDetailsModalComponent implements OnInit {
     this.#dialogRef.close({delete: true});
   }
 
+  protected openLocation(locationId: number): void {
+    this.#dialogRef.close({ showLocation: locationId });
+  }
 }

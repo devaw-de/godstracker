@@ -1,0 +1,9 @@
+@use 'button';
+
+button {
+  @include button.primary;
+}
+
+small {
+  margin-right: .5rem;
+}

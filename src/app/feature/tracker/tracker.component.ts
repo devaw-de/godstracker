@@ -7,7 +7,6 @@ import {
   LocationComponent,
   PageSelectionComponent,
   PlayersComponent,
-  QuestComponent,
   QuestDetailsModalComponent,
   QuestFinderModalComponent,
   ShipComponent
@@ -15,6 +14,7 @@ import {
 import { AppItems, AppLocation, AppQuest, Crew, ShipRoom } from './model/';
 import { LocationsService, PAGES, QuestsService, ItemsService, PlayerService, CrewService } from './data/';
 import { ShipService } from './data/ship.service';
+import { QuestsComponent } from './ui/quests/quests.component';
 
 @Component({
   selector: 'app-tracker',
@@ -26,8 +26,8 @@ import { ShipService } from './data/ship.service';
     LocationComponent,
     PageSelectionComponent,
     PlayersComponent,
-    QuestComponent,
-    ShipComponent
+    ShipComponent,
+    QuestsComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -40,6 +40,8 @@ export class TrackerComponent {
   readonly #playerService = inject(PlayerService);
   readonly #questsService = inject(QuestsService);
   readonly #shipService = inject(ShipService);
+
+  readonly locationIdPrefix = 'location';
 
   readonly pages: number[] = Array.from({ length: PAGES.length }).map((_, index) => index + 2);
   readonly questCards: AppQuest[] = this.#questsService.questCards;
@@ -84,7 +86,7 @@ export class TrackerComponent {
   }
 
   protected showQuestDetails(id: number): void {
-    const dialog = this.#dialog.open<{ delete?: boolean }>(QuestDetailsModalComponent, {
+    const dialog = this.#dialog.open<{ delete?: boolean; showLocation?: number;}>(QuestDetailsModalComponent, {
       data: {
         quest: this.quests().find((q) => q.id === id),
         locations: this.#locationsService.locations()
@@ -95,6 +97,9 @@ export class TrackerComponent {
       .subscribe((result) => {
         if (result?.delete) {
           this.#deleteQuest(id);
+        } else if (result?.showLocation) {
+          console.log(result?.showLocation);
+          this.#openAndScrollToLocation(result.showLocation);
         }
       })
   }
@@ -128,5 +133,14 @@ export class TrackerComponent {
     if (decision) {
       this.#questsService.remove(id);
     }
+  }
+
+  #openAndScrollToLocation(locationId: number): void {
+    const id = `${this.locationIdPrefix}-${locationId.toString()}`;
+    const pagesElement = document.getElementById('pages') as HTMLDetailsElement;
+    const element = document.getElementById(id) as HTMLDetailsElement;
+    element.open = true;
+    pagesElement.open = true;
+    element.scrollIntoView({ behavior: 'smooth' });
   }
 }

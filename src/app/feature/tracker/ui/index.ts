@@ -6,7 +6,7 @@ export * from './location/location-tag-selection/location-tag-selection-modal.co
 export * from './location/location-tags/location-tags.component';
 export * from './page-selection/page-selection.component';
 export * from './players/players.component';
-export * from './quest/quest.component';
+export * from './quests/quest/quest.component';
 export * from './quest-details/quest-details-modal.component';
 export * from './quest-finder/quest-finder-modal.component';
 export * from './ship/ship.component';

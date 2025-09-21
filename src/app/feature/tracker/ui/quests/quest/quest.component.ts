@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { AppQuest } from '../../model';
+import { AppQuest } from '../../../model';
 
 @Component({
   selector: 'app-quest',
