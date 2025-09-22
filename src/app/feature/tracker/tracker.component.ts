@@ -98,7 +98,6 @@ export class TrackerComponent {
         if (result?.delete) {
           this.#deleteQuest(id);
         } else if (result?.showLocation) {
-          console.log(result?.showLocation);
           this.#openAndScrollToLocation(result.showLocation);
         }
       })

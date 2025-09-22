@@ -49,12 +49,12 @@ export class CrewService implements SgStorage {
   }
 
   updateCrew(crew: Crew[]): void {
-    if (crew.length === Object.values(CrewNames).length) {
-      this.#crew.set(crew);
-      this.#storageService.set(StorageKey.CREW, crew);
-      return;
+    if (crew.length !== Object.values(CrewNames).length) {
+      throw new Error(`Invalid crew size ${crew.length}`);
     }
-    throw new Error(`Invalid crew size ${crew.length}`);
+    this.#crew.set(crew);
+    this.#storageService.set(StorageKey.CREW, crew);
+    return;
   }
 
   reset(): void {
