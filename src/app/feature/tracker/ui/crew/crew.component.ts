@@ -11,6 +11,8 @@ import { EnumToStringPipe } from '../../../../shared/pipes/enum-to-string.pipe';
 import { CrewFatigueComponent } from './crew-fatigue/crew-fatigue.component';
 import { CrewHealthIndicatorComponent } from './crew-health-indicator/crew-health-indicator.component';
 import { CrewFatigueIndicatorComponent } from './crew-fatigue-indicator/crew-fatigue-indicator.component';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-crew',
@@ -25,7 +27,8 @@ import { CrewFatigueIndicatorComponent } from './crew-fatigue-indicator/crew-fat
     EnumToStringPipe,
     CrewFatigueComponent,
     CrewHealthIndicatorComponent,
-    CrewFatigueIndicatorComponent
+    CrewFatigueIndicatorComponent,
+    FaIconComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -33,16 +36,18 @@ export class CrewComponent {
 
   readonly #dialog = inject(Dialog);
 
-  protected  readonly CrewNames = CrewNames;
+  protected readonly CrewNames = CrewNames;
+  protected readonly icons = {
+    user: faUser
+  };
 
   readonly players = input.required<string[]>();
   readonly crew = input.required<Crew[]>();
 
-  readonly crewMates = computed(() => this.crew().map((mate) => ({
-    ...mate,
-    injuriesHearts: Array
-      .from({ length: mate.maxHealth })
-      .map((_, index) => index >= mate.injuries)
+  readonly crewMates = computed(() => this.crew()
+    .map((mate) => ({
+      ...mate,
+      hasHealthCard: mate.abilityCards.map(card => card.toLowerCase()).includes('health'),
   })));
 
   crewChange = output<Crew[]>();

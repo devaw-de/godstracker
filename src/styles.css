@@ -26,6 +26,8 @@
   --border-radius-button: 4px;
   --border-radius-box: 8px;
   --padding-box: 8px;
+  --spacing-0: 1rem;
+  --spacing-1: 2.5rem;
 }
 html, body {
   padding: 0;

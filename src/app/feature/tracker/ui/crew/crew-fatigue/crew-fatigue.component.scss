@@ -1,11 +1,19 @@
 @use 'button';
 
-button {
-  @include button.primary;
-}
+:host {
+  display: block;
 
-span {
-  display: inline-block;
-  text-align: center;
-  width: 3ch;
+  & > div {
+    margin-left: var(--spacing-1);
+  }
+
+  button {
+    @include button.primary;
+  }
+
+  span {
+    display: inline-block;
+    text-align: center;
+    width: 3ch;
+  }
 }

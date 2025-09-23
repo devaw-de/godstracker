@@ -1,7 +1,8 @@
-<label for="comment-{{ mateName() }}">Comment</label>
+<h4 id="comment-label-{{ mateName() }}">Comment</h4>
 <textarea #txt
           id="comment-{{ mateName() }}"
           rows="6"
           placeholder="Comment"
+          [attr.aria-labelledby]="'comment-label-' + mateName()"
           (input)="updateComment.emit(txt.value)"
 >{{ comment() }}</textarea>

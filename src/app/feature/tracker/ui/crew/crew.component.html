@@ -1,6 +1,7 @@
-@for (mate of crew(); track $index) {
+@for (mate of crewMates(); track $index) {
   <details>
     <summary>
+      <fa-icon [icon]="icons.user"/>
       <span>{{ mate.name | enumToString }}</span>
       <app-crew-fatigue-indicator [fatigue]="mate.fatigue" />
       <app-crew-health-indicator [health]="mate.maxHealth - mate.injuries"
@@ -38,7 +39,7 @@
                     (remove)="removeAbilityCard(mate, $event)"
     />
     <app-crew-injuries [injuries]="mate.injuries"
-                       [maxHealth]="mate.maxHealth"
+                       [maxHealth]="mate.maxHealth + (mate.hasHealthCard? 1 : 0)"
                        (incrementInjuries)="incrementInjuries(mate, $event)"
     />
     <app-crew-comment [mateName]="mate.name"

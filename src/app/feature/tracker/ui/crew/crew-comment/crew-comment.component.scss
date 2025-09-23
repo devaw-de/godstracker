@@ -5,7 +5,7 @@
     display: block;
     width: calc(100% - 1rem - var(--padding-box));
     max-width: 80ch;
-    margin: 0 auto;
+    margin: 0 0 0 var(--spacing-1);
     border-radius: var(--border-radius-box);
     padding: var(--padding-box);
     font-family: Arial, sans-serif;

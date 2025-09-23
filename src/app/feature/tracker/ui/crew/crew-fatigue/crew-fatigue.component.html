@@ -1,16 +1,18 @@
 <h4>Fatigue</h4>
-<button [disabled]="!fatigue()"
-        (click)="decrement.emit()"
-        (keydown.enter)="decrement.emit()"
-        (keydown.space)="decrement.emit()"
->
-  -
+<div>
+  <button [disabled]="!fatigue()"
+          (click)="decrement.emit()"
+          (keydown.enter)="decrement.emit()"
+          (keydown.space)="decrement.emit()"
+  >
+    -
+  </button>
+  <span>{{ fatigue() }}</span>
+  <button [disabled]="fatigue() >= maxFatigue()"
+          (click)="increment.emit()"
+          (keydown.enter)="increment.emit()"
+          (keydown.space)="increment.emit()"
+  >
+    +
 </button>
-<span>{{ fatigue() }}</span>
-<button [disabled]="fatigue() >= maxFatigue()"
-        (click)="increment.emit()"
-        (keydown.enter)="increment.emit()"
-        (keydown.space)="increment.emit()"
->
-  +
-</button>
+</div>

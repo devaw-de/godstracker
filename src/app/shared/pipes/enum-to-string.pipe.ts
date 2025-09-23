@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class EnumToStringPipe implements PipeTransform {
 
-  transform(value: any): string {
+  transform(value: string): string {
     return value
       .toString()
       .split('_')

@@ -70,7 +70,6 @@ export class MenuComponent {
       .pipe(take(1))
       .subscribe((result) => {
         if (result) {
-          console.warn(result);
           this.#itemsService.update(result.items);
           this.#crewService.reset();
           this.#shipService.reset();
